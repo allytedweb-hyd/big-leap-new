@@ -19,7 +19,7 @@ export default function CourseHero({ title, description, category }: Props) {
     <section className={styles.hero}>
       <div className={styles.container}>
         {/* Rating row */}
-        <div className={styles.ratingRow}>
+        {/* <div className={styles.ratingRow}>
           <ReactStars
             count={5}
             value={4.5}
@@ -40,7 +40,7 @@ export default function CourseHero({ title, description, category }: Props) {
               <span className={styles.category}>{category}</span>
             </>
           )}
-        </div>
+        </div> */}
 
         {/* Title */}
         <h1 className={styles.heading}>

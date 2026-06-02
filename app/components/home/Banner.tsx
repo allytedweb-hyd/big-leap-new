@@ -37,7 +37,7 @@ export default function Banner() {
           </p>
           <div className="buttons">
             <button className="primary" onClick={scrollToContact}>
-              <span className="btn-icon">▶</span> Get Started
+              <span className="btn-icon">▶</span> Talk to our expert
             </button>
             <button className="secondary" onClick={() => router.push("/courses")}>
               Explore Programs

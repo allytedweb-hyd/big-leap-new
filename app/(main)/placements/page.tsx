@@ -17,9 +17,10 @@ export default function PlacementsPage() {
   return (
     <main>
       <PlacementsHero />
-      <PlacementsJourney />
-      <PlacementsCompanies />
+      {/* <PlacementsJourney /> */}
       <PlacementsHowWeHelp />
+      <PlacementsCompanies />
+      
       <Testimonials />
       <FAQ />
       <GetInTouch />
