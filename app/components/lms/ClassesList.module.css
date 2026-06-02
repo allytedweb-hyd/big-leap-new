@@ -1,0 +1,852 @@
+/* ─── Page shell ──────────────────────────────────────────────────────────── */
+.page {
+    min-height: 100vh;
+    background: #f8f9fb;
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* ─── Top bar ─────────────────────────────────────────────────────────────── */
+.topBar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    background: #fff;
+    border-bottom: 1px solid #eef0f4;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-wrap: wrap;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: transparent;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        border-color 0.15s;
+    white-space: nowrap;
+}
+.backBtn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.topBarTitle {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.topBarCourse {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.topBarTech {
+    font-size: 11px;
+    color: #f97316;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.topBarProgress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.progressLabel {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.topProgressTrack {
+    width: 120px;
+    height: 5px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+.topProgressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #fb923c);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+/* ─── Layout ──────────────────────────────────────────────────────────────── */
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 57px);
+    align-items: start;
+}
+
+/* ─── Left panel ──────────────────────────────────────────────────────────── */
+.leftPanel {
+    padding: 28px 32px 60px;
+    min-width: 0;
+}
+
+/* ─── Video ───────────────────────────────────────────────────────────────── */
+.videoWrap {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0f172a;
+    aspect-ratio: 16/9;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.noVideo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.noVideoThumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+}
+.noVideoOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.noVideoMsg {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 14px;
+    background: rgba(15, 23, 42, 0.7);
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+/* ─── Lesson navigation ───────────────────────────────────────────────────── */
+.lessonNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0 4px;
+}
+.navBtn {
+    padding: 7px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.navBtn:hover:not(:disabled) {
+    background: #f97316;
+    border-color: #f97316;
+    color: #fff;
+}
+.navBtn:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+.lessonCounter {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ─── Lesson meta ─────────────────────────────────────────────────────────── */
+.lessonMeta {
+    margin-top: 20px;
+}
+.lessonBreadcrumb {
+    margin-bottom: 8px;
+}
+.chapterBadge {
+    font-size: 12px;
+    color: #f97316;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 500;
+}
+.lessonTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 10px;
+    line-height: 1.3;
+}
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* ─── Actions ─────────────────────────────────────────────────────────────── */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.markBtn {
+    padding: 9px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 9px;
+    background: #fff;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+}
+.markBtn:hover {
+    border-color: #22c55e;
+    color: #16a34a;
+}
+.markBtnDone {
+    border-color: #22c55e;
+    background: #f0fdf4;
+    color: #16a34a;
+}
+.nextLessonBtn {
+    padding: 9px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #f97316;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.nextLessonBtn:hover {
+    background: #ea6c00;
+}
+
+/* ─── Learning outcomes ───────────────────────────────────────────────────── */
+.outcomesSection,
+.highlightsSection {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid #f1f5f9;
+}
+.sectionHeading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px;
+}
+.outcomesDesc {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 14px;
+    line-height: 1.6;
+}
+.outcomesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.outcomeItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.5;
+}
+.outcomeDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f97316;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+/* ─── Key highlights ──────────────────────────────────────────────────────── */
+.highlightsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.highlightChip {
+    padding: 6px 14px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 99px;
+    font-size: 13px;
+    color: #c2410c;
+    font-weight: 500;
+}
+
+/* ─── Course stats ────────────────────────────────────────────────────────── */
+.statsRow {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+}
+.statBox {
+    flex: 1;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.statNum {
+    font-size: 22px;
+    font-weight: 800;
+    color: #f97316;
+}
+.statLabel {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ─── Right panel: Curriculum ─────────────────────────────────────────────── */
+.rightPanel {
+    background: #fff;
+    border-left: 1px solid #eef0f4;
+    height: calc(100vh - 57px);
+    position: sticky;
+    top: 57px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.curriculumHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    flex-shrink: 0;
+}
+.curriculumTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+.curriculumCount {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.progressTrack {
+    height: 4px;
+    background: #f1f5f9;
+    flex-shrink: 0;
+}
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #fb923c);
+    transition: width 0.4s ease;
+}
+.progressText {
+    font-size: 11px;
+    color: #94a3b8;
+    padding: 5px 20px 8px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.chapterList {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+/* ─── Chapter ─────────────────────────────────────────────────────────────── */
+.chapterBlock {
+    border-bottom: 1px solid #f8f9fb;
+}
+
+.chapterRow {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+    gap: 8px;
+}
+.chapterRow:hover {
+    background: #f8f9fb;
+}
+.chapterRowActive {
+    background: #fff7ed;
+}
+.chapterLeft {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+}
+.chapterNum {
+    font-size: 11px;
+    font-weight: 700;
+    color: #f97316;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 5px;
+    padding: 2px 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.chapterTitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.4;
+}
+.chapterRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.chapterMeta {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ─── Lessons ─────────────────────────────────────────────────────────────── */
+.lessonList {
+    padding: 4px 0 8px;
+    background: #fafbfc;
+}
+
+.lessonRow {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px 9px 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+}
+.lessonRow:hover {
+    background: #f1f5f9;
+}
+.lessonRowActive {
+    background: #fff7ed !important;
+}
+.lessonRowDone .lessonName {
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+.lessonIcon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+.lessonName {
+    flex: 1;
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.4;
+    text-align: left;
+}
+.lessonRowActive .lessonName {
+    color: #f97316;
+    font-weight: 600;
+}
+.lessonDuration {
+    font-size: 11px;
+    color: #94a3b8;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.emptyLessons {
+    padding: 10px 28px;
+    font-size: 12px;
+    color: #cbd5e1;
+    font-style: italic;
+    margin: 0;
+}
+.emptyMsg {
+    padding: 24px 20px;
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+    margin: 0;
+}
+
+/* ─── Skeleton ────────────────────────────────────────────────────────────── */
+.skeleton {
+    padding: 28px 32px;
+    max-width: 900px;
+}
+.skeletonVideo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #e2e8f0;
+    border-radius: 14px;
+    animation: shimmer 1.4s ease-in-out infinite;
+}
+.skeletonLines {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.skeletonLine {
+    height: 16px;
+    background: #e2e8f0;
+    border-radius: 8px;
+    animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.55;
+    }
+}
+
+/* ─── Error box ───────────────────────────────────────────────────────────── */
+.errorBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 40vh;
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+    .rightPanel {
+        height: auto;
+        position: static;
+        border-left: none;
+        border-top: 1px solid #eef0f4;
+    }
+    .leftPanel {
+        padding: 20px 16px 32px;
+    }
+    .outcomesList {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 640px) {
+    .topBar {
+        padding: 10px 16px;
+    }
+    .topProgressTrack {
+        width: 80px;
+    }
+    .lessonTitle {
+        font-size: 18px;
+    }
+}
+/* ─── ADD THESE to your ClassesList.module.css ───────────────────────────────
+   These are NEW classes needed by the updated CoursePlayerPage.
+   All existing classes remain unchanged.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ── Batch badge in top bar ─────────────────────────────────────────────────── */
+.batchBadge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(249, 115, 22, 0.08);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    color: #f97316;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.batchTimingSep {
+    color: rgba(249, 115, 22, 0.4);
+}
+
+/* ── Curriculum meta (available count) ──────────────────────────────────────── */
+.curriculumMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ── Live session overlay on video placeholder ──────────────────────────────── */
+.liveVideoPlaceholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #0f172a;
+}
+
+.liveOverlayContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 24px;
+    text-align: center;
+}
+
+.liveOverlayIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.15);
+    border: 2px solid rgba(34, 197, 94, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 12px rgba(34, 197, 94, 0);
+    }
+}
+
+.liveOverlayTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin: 0;
+}
+
+.liveOverlayDate {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.liveOverlayJoin {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition:
+        background 0.18s,
+        transform 0.18s;
+    margin-top: 4px;
+}
+
+.liveOverlayJoin:hover {
+    background: #16a34a;
+    transform: translateY(-1px);
+}
+
+/* ── Live tag in lesson breadcrumb ──────────────────────────────────────────── */
+.liveTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Live dot (pulsing green) ────────────────────────────────────────────────── */
+.liveDot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: liveDotPulse 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes liveDotPulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.7);
+    }
+}
+
+/* ── Live session panel (below video, for live-only lessons) ─────────────────── */
+.livePanel {
+    background: linear-gradient(
+        135deg,
+        rgba(34, 197, 94, 0.06),
+        rgba(34, 197, 94, 0.02)
+    );
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.livePanelHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.livePanelTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.liveDate {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.liveJoinBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 7px;
+    text-decoration: none;
+    align-self: flex-start;
+    transition:
+        background 0.18s,
+        transform 0.18s;
+}
+
+.liveJoinBtn:hover {
+    background: #16a34a;
+    transform: translateY(-1px);
+}
+
+/* ── Locked lesson row (greyed out, not clickable) ──────────────────────────── */
+.lessonRowLocked {
+    opacity: 0.45;
+    cursor: not-allowed !important;
+}
+
+.lessonRowLocked:hover {
+    background: transparent !important;
+}
+
+/* ── Live chip inside lesson name ────────────────────────────────────────────── */
+.lessonLiveChip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+}

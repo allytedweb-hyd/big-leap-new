@@ -1,0 +1,142 @@
+.lj-section {
+    background: var(--bg-main);
+    padding: 72px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* ── BADGE ── */
+
+.lj-badge {
+    display: inline-block;
+    background: var(--chip-dark);
+    border: 1.5px solid var(--brand-primary);
+    color: var(--brand-primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* ── HEADING ── */
+
+.lj-heading {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 16px;
+    line-height: 1.15;
+}
+
+.lj-heading span {
+    color: var(--brand-primary);
+}
+
+
+/* ── SUBTEXT ── */
+
+.lj-subtext {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    max-width: 460px;
+    line-height: 1.7;
+    margin: 0 0 64px;
+}
+
+
+/* ── STEPS ROW ── */
+
+.lj-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    gap: 0;
+}
+
+
+/* ── SINGLE STEP ── */
+
+.lj-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    max-width: 160px;
+    gap: 14px;
+}
+
+
+/* ── ICON CIRCLE ── */
+
+.lj-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--chip-dark);
+    border: 3px solid rgba(236, 125, 1, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.lj-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+
+/* ── STEP TEXT ── */
+
+.lj-step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.lj-step-desc {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    line-height: 1.55;
+}
+
+
+/* ── CONNECTOR LINE ── */
+
+.lj-divider {
+    flex-shrink: 0;
+    width: 48px;
+    height: 2px;
+    background: var(--brand-primary);
+    opacity: 0.5;
+    margin-top: 35px;
+    /* aligns with center of icon */
+    border-radius: 2px;
+}
+
+@media (max-width: 700px) {
+    .lj-steps {
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+    }
+    .lj-divider {
+        width: 2px;
+        height: 28px;
+        margin-top: 0;
+    }
+}

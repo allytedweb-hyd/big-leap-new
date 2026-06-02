@@ -1,0 +1,577 @@
+/* ─── Dashboard ──────────────────────────────────────────────────────────────── */
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ─── Hero banner ────────────────────────────────────────────────────────────── */
+
+.heroBanner {
+    background: linear-gradient(135deg, #1a2332 0%, #1e3a5f 60%, #1e40af 100%);
+    border-radius: 16px;
+    padding: 32px 36px 0;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+}
+
+.heroBanner::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(249, 115, 22, 0.18) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+}
+
+.heroDate {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #f97316;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+}
+
+.heroGreeting {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 8px;
+    line-height: 1.25;
+}
+
+.heroGreeting span {
+    color: #f97316;
+}
+
+.heroSub {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 24px;
+    line-height: 1.6;
+}
+
+.heroBtns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.heroPrimary {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #f97316;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        transform 0.1s;
+}
+
+.heroPrimary:hover {
+    background: #ea580c;
+    transform: translateY(-1px);
+}
+
+.heroSecondary {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.15s;
+}
+
+.heroSecondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.heroProgress {
+    margin-top: 28px;
+}
+
+.heroProgressBar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+}
+
+.heroProgressFill {
+    height: 100%;
+    background: #f97316;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+/* ─── Stats ──────────────────────────────────────────────────────────────────── */
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.statCard {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #e8eaf0;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+.statIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.statBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.statValue {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.1;
+}
+
+.statLabel {
+    font-size: 12.5px;
+    color: #374151;
+    font-weight: 500;
+}
+
+.statSub {
+    font-size: 11px;
+    color: #22c55e;
+    font-weight: 600;
+}
+
+/* ─── Main grid ──────────────────────────────────────────────────────────────── */
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+    align-items: start;
+}
+
+.leftCol,
+.rightCol {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ─── Section ────────────────────────────────────────────────────────────────── */
+
+.section {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e8eaf0;
+    padding: 20px;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.sectionTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.viewAll {
+    background: none;
+    border: none;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #3b82f6;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s;
+}
+
+.viewAll:hover {
+    color: #2563eb;
+}
+
+/* ─── Course cards ───────────────────────────────────────────────────────────── */
+
+.coursesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.courseCard {
+    border: 1px solid #e8eaf0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+}
+
+.courseCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.courseImgWrap {
+    height: 120px;
+    overflow: hidden;
+}
+
+.courseImgPlaceholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.courseBody {
+    padding: 14px;
+}
+
+.courseTitle {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.courseMeta {
+    display: flex;
+    gap: 12px;
+    font-size: 11.5px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.courseMeta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.progressWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.progressBar {
+    height: 5px;
+    background: #f0f1f5;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+.progressPct {
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.courseFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.streakBadge {
+    font-size: 11.5px;
+    color: #92400e;
+    background: #fff3e0;
+    border-radius: 20px;
+    padding: 3px 9px;
+    font-weight: 600;
+}
+
+.continueBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.continueBtn:hover {
+    background: #1d4ed8;
+}
+
+/* ─── Leaderboard ────────────────────────────────────────────────────────────── */
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.lbRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: background 0.12s;
+}
+
+.lbRow:hover {
+    background: #f8f9fc;
+}
+
+.lbRowMe {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.lbRowMe:hover {
+    background: #dbeafe;
+}
+
+.lbRank {
+    width: 28px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #374151;
+    flex-shrink: 0;
+}
+
+.lbAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.lbName {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.lbPts {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* ─── Schedule ───────────────────────────────────────────────────────────────── */
+
+.scheduleList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.scheduleItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.scheduleTime {
+    width: 52px;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+.scheduleTimeText {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    line-height: 1.3;
+}
+
+.scheduleDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+    background: #d1d5db;
+}
+
+.scheduleDot[data-status="live"] {
+    background: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.scheduleDot[data-status="upcoming"] {
+    background: #22c55e;
+}
+
+.scheduleDot[data-status="completed"] {
+    background: #9ca3af;
+}
+
+.scheduleBody {
+    flex: 1;
+}
+
+.scheduleTitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 2px;
+    line-height: 1.4;
+}
+
+.scheduleInstructor {
+    font-size: 11.5px;
+    color: #6b7280;
+    margin: 0 0 5px;
+}
+
+.scheduleBadge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 2px 8px;
+    letter-spacing: 0.3px;
+}
+
+.badgeLive {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.badgeUpcoming {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.badgeCompleted {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1200px) {
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mainGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .rightCol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .heroBanner {
+        padding: 24px 20px 0;
+    }
+
+    .heroGreeting {
+        font-size: 20px;
+    }
+
+    .heroBtns {
+        flex-direction: column;
+    }
+
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .coursesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .rightCol {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .statsGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

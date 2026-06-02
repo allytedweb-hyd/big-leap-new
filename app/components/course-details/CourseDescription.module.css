@@ -1,0 +1,60 @@
+.section {
+    background: #fff;
+    padding: 56px 0 80px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Body paragraphs */
+.para {
+    font-size: 14.5px;
+    color: #444;
+    line-height: 1.75;
+    margin: 0 0 18px;
+}
+
+/* Overview heading */
+.overviewHeading {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0d0d2b;
+    margin: 36px 0 20px;
+}
+
+/* Overview list */
+.overviewList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.overviewItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14.5px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.checkIcon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #f97316;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+}

@@ -1,0 +1,246 @@
+/* ══════════════════════════
+   SECTION WRAPPER
+══════════════════════════ */
+.section {
+  background: #0b0f3c;
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+/* ── Layout container ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+  background: #0f1340;
+  border-radius: 24px;
+  min-height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ══════════════════════════
+   LEFT COLUMN
+══════════════════════════ */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 48px 40px 48px 0;
+}
+
+/* Eyebrow pill */
+.eyebrow {
+  display: inline-block;
+  background: rgba(100, 40, 30, 0.75);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  width: fit-content;
+  letter-spacing: 0.3px;
+}
+
+/* Heading */
+.heading {
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+  margin: 0 0 28px;
+  max-width: 420px;
+}
+
+/* Explore button */
+.exploreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f97316;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 18px 12px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  width: fit-content;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.exploreBtn:hover {
+  background: #ea6c0a;
+  transform: translateY(-1px);
+}
+
+.arrowCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0d0d2b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════
+   RIGHT COLUMN — image card
+══════════════════════════ */
+.rightCol {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: relative;
+  height: 100%;
+  min-height: 280px;
+}
+
+/* Rounded image card */
+.imageCard {
+  position: relative;
+  width: 280px;
+  height: 320px;
+  border-radius: 120px 120px 0 0;
+  background: #3b3fa8;
+  overflow: visible;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.studentImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 120px 120px 0 0;
+  display: block;
+}
+
+/* ── Circular rotating badge ── */
+.badge {
+  position: absolute;
+  bottom: -16px;
+  right: -48px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #3b3fa8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+/* The SVG ring with rotating text */
+.badgeRing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: rotateBadge 8s linear infinite;
+}
+
+.badgeText {
+  fill: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+@keyframes rotateBadge {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Arrow in badge center */
+.badgeArrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  z-index: 1;
+  transform: rotate(-45deg);
+}
+
+/* ══════════════════════════
+   RESPONSIVE
+══════════════════════════ */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 32px;
+    gap: 24px;
+  }
+
+  .imageCard {
+    width: 220px;
+    height: 260px;
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    padding: 40px 20px;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    padding: 40px 28px;
+    gap: 0;
+    border-radius: 20px;
+  }
+
+  .leftCol {
+    padding: 0 0 32px;
+  }
+
+  .heading {
+    max-width: 100%;
+  }
+
+  .rightCol {
+    justify-content: center;
+    min-height: 240px;
+  }
+
+  .imageCard {
+    width: 200px;
+    height: 240px;
+  }
+
+  .badge {
+    right: -24px;
+    bottom: -10px;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 32px 20px;
+  }
+
+  .imageCard {
+    width: 160px;
+    height: 200px;
+  }
+}

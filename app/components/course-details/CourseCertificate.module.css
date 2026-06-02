@@ -1,0 +1,167 @@
+.section {
+    background: #fff;
+    padding: 72px 0 88px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+
+/* ── Top header ── */
+
+.topHeader {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.eyebrow {
+    display: inline-block;
+    background: #fff0e0;
+    color: #f97316;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    padding: 7px 20px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border: 1px solid rgba(249, 115, 22, 0.18);
+}
+
+.heading {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: #0d0d2b;
+    line-height: 1.25;
+    margin: 0;
+}
+
+.orange {
+    color: #f97316;
+}
+
+
+/* ── Dark card ── */
+
+.card {
+    background: #0d1453;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    min-height: 420px;
+    overflow: visible;
+    position: relative;
+    padding: 52px 0 52px 52px;
+    gap: 0;
+}
+
+
+/* ── Left column ── */
+
+.leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 2;
+}
+
+.cardTitle {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    margin: 0;
+}
+
+
+/* Points list */
+
+.pointsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.pointItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.55;
+}
+
+.checkIcon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+}
+
+
+/* ── Right column ── */
+
+.rightCol {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px 32px 20px 20px;
+}
+
+
+/* Certificate — direct, no white wrapper */
+
+.certDirect {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    border: 2px solid #d4af37;
+}
+
+.certImg {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 900px) {
+    .card {
+        grid-template-columns: 1fr;
+        padding: 40px 32px;
+        gap: 40px;
+    }
+    .rightCol {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    .card {
+        padding: 32px 20px;
+    }
+}

@@ -1,0 +1,665 @@
+.page {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ─── LEFT PANEL ─── */
+.leftPanel {
+    flex: 1;
+    background: #06113c;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 40px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.heroText {
+    z-index: 2;
+    position: relative;
+}
+
+.heroHeading {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 16px;
+    letter-spacing: -0.5px;
+}
+
+.orange {
+    color: #f97316;
+}
+
+.white {
+    color: #ffffff;
+}
+
+.heroSub {
+    font-size: 1rem;
+    color: #a8b4d0;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Image area */
+.imageArea {
+    flex: 1;
+    position: relative;
+    margin-top: 32px;
+}
+
+/* Floating tech logos */
+.techLogo {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    z-index: 3;
+    animation: float 3s ease-in-out infinite;
+    border-radius: 10px;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Girl image */
+.girlWrap {
+    position: absolute;
+    bottom: 0px;
+    left: 30%;
+    transform: translateX(-50%);
+    width: 75%;
+    max-width: 340px;
+    z-index: 2;
+}
+
+.girlImg {
+    width: 200%;
+    height: 200%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Carousel */
+.carousel {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 16px 32px;
+    text-align: center;
+    min-width: 240px;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.carouselText {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 10px;
+    white-space: nowrap;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    border: none;
+    transition:
+        background 0.3s,
+        transform 0.3s;
+}
+
+.dotActive {
+    background: #f97316;
+    transform: scale(1.2);
+}
+
+/* ─── RIGHT PANEL ─── */
+.rightPanel {
+    width: 520px;
+    min-width: 420px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 98px 32px 46px 46px;
+    overflow-y: auto;
+}
+
+.formCard {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Logo */
+.logoWrap {
+    margin-bottom: 4px;
+}
+
+.logo {
+    height: 85px;
+    object-fit: contain;
+}
+
+/* ─── TABS ─── */
+.tabsWrapper {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.tabs {
+    position: relative;
+    display: flex;
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 4px;
+    width: 100%;
+}
+
+.tabBtn {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    border-radius: 9px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.25s;
+}
+
+.tabActive {
+    color: #1e293b;
+}
+
+.tabSlider {
+    position: absolute;
+    top: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: #ffffff;
+    border-radius: 9px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── TAB CONTENT ─── */
+.tabContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.tabHeader {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.welcomeTitle {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+}
+
+.welcomeSub {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ─── FORM ─── */
+.formGroup {
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+.label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 6px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e8edf4;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    background: #f8fafc;
+    outline: none;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: #94a3b8;
+}
+
+.input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    background: #fff;
+}
+
+/* Error state */
+.inputError {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+    background: #fff5f5 !important;
+}
+
+.fieldError {
+    margin: 5px 0 0;
+    font-size: 0.78rem;
+    color: #ef4444;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fieldError::before {
+    content: "⚠";
+    font-size: 0.7rem;
+}
+
+/* Phone */
+.phoneWrap {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #e8edf4;
+    border-radius: 10px;
+    background: #f8fafc;
+    overflow: hidden;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.phoneWrap:focus-within {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    background: #fff;
+}
+
+.countryCode {
+    padding: 0 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #475569;
+    border-right: 1.5px solid #e8edf4;
+    white-space: nowrap;
+    background: #f1f5f9;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+}
+
+.phoneInput {
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    flex: 1;
+}
+
+/* Password */
+.passwordWrap {
+    position: relative;
+}
+
+.passwordWrap .input {
+    padding-right: 46px;
+}
+
+.eyeBtn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.eyeBtn:hover {
+    color: #475569;
+}
+
+/* ─── BUTTONS ─── */
+.primaryBtn {
+    width: 100%;
+    padding: 14px;
+    background: #f97316;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        transform 0.1s,
+        opacity 0.2s;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+}
+
+.primaryBtn:hover:not(:disabled) {
+    background: #ea6c0a;
+    transform: translateY(-1px);
+}
+
+.primaryBtn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.primaryBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.googleBtn {
+    width: 100%;
+    padding: 12px;
+    background: #ffffff;
+    color: #1e293b;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition:
+        background 0.2s,
+        border-color 0.2s;
+    margin-bottom: 20px;
+}
+
+.googleBtn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+/* ─── SWITCH TEXT ─── */
+.switchText {
+    font-size: 0.875rem;
+    color: #64748b;
+    text-align: center;
+    margin: 0;
+}
+
+.switchLink {
+    color: #f97316;
+    font-weight: 700;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+    transition: color 0.2s;
+}
+
+.switchLink:hover {
+    color: #ea6c0a;
+    text-decoration: underline;
+}
+
+/* ─── OTP ─── */
+.otpRow {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 4px 0;
+}
+
+.otpBox {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1e293b;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    outline: none;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+    caret-color: #f97316;
+}
+
+.otpBox:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
+    background: #fff;
+}
+
+.otpFilled {
+    border-color: #f97316;
+    background: #fff7ed;
+}
+
+/* ─── RESEND ROW ─── */
+.resendRow {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0 20px;
+}
+
+.timerText {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.timerNum {
+    color: #f97316;
+}
+
+.resendBtn {
+    font-size: 0.875rem;
+    color: #f97316;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.resendBtn:hover {
+    color: #ea6c0a;
+    text-decoration: underline;
+}
+
+/* ─── BACK BUTTON ─── */
+.backBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #475569;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 16px;
+    transition: color 0.2s;
+}
+
+.backBtn:hover {
+    color: #f97316;
+}
+
+/* ─── HIGHLIGHT (OTP sent to) ─── */
+.highlight {
+    color: #f97316;
+    font-weight: 700;
+}
+
+/* ─── SPINNER ─── */
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─── ALT LOGIN BUTTON (Login with OTP / Login with Email & Password) ─── */
+.altLoginBtn {
+    width: 100%;
+    padding: 12px;
+    background: #ffffff;
+    color: #1e293b;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition:
+        background 0.2s,
+        border-color 0.2s,
+        color 0.2s;
+    margin-bottom: 20px;
+}
+
+.altLoginBtn:hover {
+    background: #fff7ed;
+    border-color: #f97316;
+    color: #f97316;
+}
+
+/* ─── FORGOT ROW ─── */
+.forgotRow {
+    display: flex;
+    justify-content: flex-end;
+    margin: -6px 0 18px;
+}
+
+.forgotBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.forgotBtn:hover {
+    color: #f97316;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+    .page {
+        flex-direction: column;
+    }
+
+    .leftPanel {
+        min-height: 50vh;
+        padding: 40px 24px 0;
+    }
+
+    .rightPanel {
+        width: 100%;
+        min-width: unset;
+        padding: 32px 20px 48px;
+    }
+
+    .otpBox {
+        width: 52px;
+        height: 52px;
+        font-size: 1.2rem;
+    }
+}

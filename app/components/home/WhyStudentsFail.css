@@ -1,0 +1,313 @@
+/* ═══════════════════════════════════════════
+   SECTION
+═══════════════════════════════════════════ */
+
+.never-get-hired {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.eyebrow-line {
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.eyebrow-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.red-dot {
+    background: #FF3B3B;
+}
+
+.orange-dot {
+    background: #ec7d01;
+}
+
+
+/* ═══════════════════════════════════════════
+   TITLE
+═══════════════════════════════════════════ */
+
+.section-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #0A0A5C;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: #ec7d01;
+}
+
+.description {
+    margin-top: 14px;
+    color: #444;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+
+/* ═══════════════════════════════════════════
+   MAIN LAYOUT
+═══════════════════════════════════════════ */
+
+.main-layout {
+    margin-top: 52px;
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    align-items: start;
+    gap: 0 12px;
+}
+
+
+/* ═══════════════════════════════════════════
+   CARDS
+   KEY: position:relative + fixed min-height
+   NO flex — so the card is a normal block container
+   and the absolute image stays INSIDE it
+═══════════════════════════════════════════ */
+
+.fail-card,
+.success-card {
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    min-height: 640px;
+    /* enough room for chips + image */
+}
+
+.fail-card {
+    background: linear-gradient(to bottom, #fff8f8 0%, #f5d0d0 55%, #d97070 100%);
+}
+
+.success-card {
+    background: linear-gradient(to bottom, #f6fff9 0%, #c0ecd3 55%, #5ac28a 100%);
+}
+
+
+/* ═══════════════════════════════════════════
+   CARD CONTENT — chips
+   z-index:2 keeps chips above the image layer
+   padding-bottom creates space so chips never
+   overlap the image below
+═══════════════════════════════════════════ */
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    padding: 28px 20px 300px;
+    /* bottom padding ≈ image height so chips stay clear */
+}
+
+.label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: block;
+    text-align: center;
+}
+
+.red {
+    color: #FF3B3B;
+}
+
+.green {
+    color: #00A651;
+}
+
+.chips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 18px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #1a1a1a;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+
+/* ═══════════════════════════════════════════
+   IMAGE WRAPPER
+   Absolutely anchored to card bottom.
+   Height 50% = covers bottom half of card.
+   z-index:1 = behind chips (z:2)
+═══════════════════════════════════════════ */
+
+.card-image-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.card-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+    /* show face/upper body */
+    display: block;
+}
+
+.card-bg-img2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 80%;
+    /* show face/upper body */
+    display: block;
+}
+
+
+/* ── Fade overlay: sits on top of image, blends into card bg ── */
+
+.image-fade-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* Colours must match each card's mid-gradient stop */
+
+.fail-fade {
+    background: linear-gradient( to bottom, #f5d0d0 0%, rgba(245, 208, 208, 0.8) 40%, transparent 100%);
+}
+
+.success-fade {
+    background: linear-gradient( to bottom, #c0ecd3 0%, rgba(192, 236, 211, 0.8) 40%, transparent 100%);
+}
+
+
+/* ═══════════════════════════════════════════
+   MIDDLE ARROWS
+   padding-top aligns arrows with chip rows:
+   label (~52px) + card top padding (28px) = 80px
+═══════════════════════════════════════════ */
+
+.middle-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.arrows-offset {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.arrow-row {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+    .section-title {
+        font-size: 34px;
+    }
+    .fail-card,
+    .success-card {
+        min-height: 580px;
+    }
+    .card-content {
+        padding-bottom: 260px;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        gap: 20px 0;
+    }
+    .middle-arrows {
+        display: none;
+    }
+    .arrows-offset {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+    .section-title {
+        font-size: 26px;
+    }
+    .fail-card,
+    .success-card {
+        min-height: 520px;
+    }
+    .card-content {
+        padding-bottom: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chip {
+        font-size: 13px;
+        padding: 10px 14px;
+        gap: 10px;
+    }
+    .fail-card,
+    .success-card {
+        min-height: 460px;
+    }
+    .card-content {
+        padding-bottom: 180px;
+    }
+}
+
+
+/* ADD THIS */
+
+.success-card .card-bg-img {
+    object-position: center 0%;
+}

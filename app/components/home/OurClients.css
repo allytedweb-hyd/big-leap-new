@@ -1,0 +1,178 @@
+.oc-section {
+    background: var(--bg-main);
+    padding: 72px 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+.oc-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--brand-primary);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+}
+
+.oc-heading {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 12px;
+    max-width: 680px;
+    line-height: 1.2;
+}
+
+.oc-heading span {
+    color: var(--brand-primary);
+}
+
+.oc-subtext {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 52px;
+    text-align: center;
+    max-width: 480px;
+    line-height: 1.6;
+}
+
+
+/* ── TRACK WRAPPER ── */
+
+.oc-track-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.oc-track-wrapper::before,
+.oc-track-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.oc-track-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-main), transparent);
+}
+
+.oc-track-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-main), transparent);
+}
+
+
+/* ── TRACK ── */
+
+.oc-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+}
+
+.oc-track--right {
+    animation: scroll-right 30s linear infinite;
+}
+
+.oc-track--left {
+    animation: scroll-left 30s linear infinite;
+}
+
+.oc-track--right:hover,
+.oc-track--left:hover {
+    animation-play-state: paused;
+}
+
+
+/* ── CARD ── */
+
+.oc-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 18px 28px;
+    flex-shrink: 0;
+    min-width: 160px;
+    height: 72px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    cursor: default;
+}
+
+.oc-card:hover {
+    background: rgba(236, 125, 1, 0.08);
+    border-color: rgba(236, 125, 1, 0.4);
+    transform: translateY(-2px);
+}
+
+
+/* ── LOGO ICON ── */
+
+.oc-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.oc-card-icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.oc-card:hover .oc-card-icon {
+    opacity: 1;
+}
+
+.oc-card-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
+    transition: color 0.25s ease;
+}
+
+.oc-card:hover .oc-card-name {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* ── ANIMATIONS ── */
+
+@keyframes scroll-right {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,237 @@
+.section {
+    background: #07071f;
+    padding: 72px 0 88px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* ── Main card ── */
+.card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    min-height: 300px;
+    background: linear-gradient(
+        135deg,
+        #c67206 0%,
+        #7a3f00 25%,
+        #1a1040 55%,
+        #0d0d3b 100%
+    );
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
+}
+
+/* ── Left column ── */
+.leftCol {
+    padding: 52px 48px 52px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.courseTitle {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0 0 14px;
+}
+
+.courseDesc {
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.65;
+    margin: 0 0 24px;
+}
+
+.price {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: #f97316;
+    margin: 0 0 28px;
+    letter-spacing: -0.5px;
+}
+
+/* Enroll button */
+.enrollBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #f97316;
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 20px 13px 26px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    width: fit-content;
+    transition:
+        background 0.2s,
+        transform 0.15s;
+}
+
+.enrollBtn:hover {
+    background: #ea6c0a;
+    transform: translateY(-1px);
+}
+
+.arrowCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── Right column ── */
+.rightCol {
+    padding: 40px 48px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* Most Popular badge */
+.popularBadge {
+    align-self: flex-end;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 22px;
+    border-radius: 50px;
+    margin-bottom: 28px;
+    letter-spacing: 0.2px;
+}
+
+/* 3D star decoration */
+.starDecor {
+    position: absolute;
+    top: 48px;
+    right: 140px;
+    font-size: 2.8rem;
+    color: #c8870a;
+    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+    transform: rotate(-15deg);
+    line-height: 1;
+}
+
+/* Meta rows */
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.metaLabel {
+    font-weight: 800;
+}
+
+.metaValue {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Divider with label */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 18px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(249, 115, 22, 0.45);
+}
+
+.dividerLabel {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f97316;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+/* Highlight list */
+.highlightList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.highlightItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+}
+
+.checkIcon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 165, 0, 0.35);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .card {
+        grid-template-columns: 1fr;
+    }
+
+    .leftCol {
+        padding: 40px 32px 32px;
+    }
+
+    .rightCol {
+        padding: 0 32px 40px;
+    }
+
+    .starDecor {
+        display: none;
+    }
+
+    .popularBadge {
+        align-self: flex-start;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .leftCol,
+    .rightCol {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}

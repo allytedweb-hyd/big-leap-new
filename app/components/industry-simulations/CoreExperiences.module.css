@@ -1,0 +1,168 @@
+.section {
+    background: #070b34;
+    padding: 80px 60px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.heading {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 14px;
+}
+
+.heading span {
+    color: #f97316;
+}
+
+.subtext {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+    margin: 0 auto 50px;
+    max-width: 520px;
+}
+
+
+/* ── Grid ── */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.card {
+    padding: 36px 28px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    position: relative;
+}
+
+
+/* Remove right border on last in each row */
+
+.card:nth-child(4n) {
+    border-right: none;
+}
+
+
+/* Remove bottom border on last row */
+
+.card:nth-last-child(-n+4) {
+    border-bottom: none;
+}
+
+
+/* Hover state */
+
+.card:hover,
+.card.active {
+    background: #0f1547;
+}
+
+
+/* Orange bottom accent on hover */
+
+.card:hover::after,
+.card.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #f97316;
+}
+
+.iconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 24px;
+}
+
+.cardTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px;
+    line-height: 1.35;
+}
+
+.cardDesc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+/* ── RESPONSIVE ── */
+
+@media (max-width: 1024px) {
+    .section {
+        padding: 60px 40px;
+    }
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .card:nth-child(4n) {
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card:nth-child(2n) {
+        border-right: none;
+    }
+    .card:nth-last-child(-n+4) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card:nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 50px 24px;
+    }
+    .heading {
+        font-size: 1.8rem;
+    }
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 40px 18px;
+    }
+    .heading {
+        font-size: 1.5rem;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    .card {
+        border-right: none !important;
+    }
+    .card:nth-last-child(-n+2) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card:last-child {
+        border-bottom: none;
+    }
+}

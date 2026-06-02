@@ -1,0 +1,180 @@
+/* ─── Container ─────────────────────────────────────────────── */
+.container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    pointer-events: none; /* let clicks pass through gaps */
+    max-width: 380px;
+    width: calc(100vw - 3rem);
+}
+
+/* ─── Base Toast ─────────────────────────────────────────────── */
+.toast {
+    pointer-events: all;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem 0.9rem 1rem;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.07),
+        0 10px 30px -5px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    will-change: transform, opacity;
+}
+
+/* ─── Colour variants ────────────────────────────────────────── */
+.success {
+    border-left: 3.5px solid #22c55e;
+}
+.success .iconWrap {
+    color: #16a34a;
+}
+
+.error {
+    border-left: 3.5px solid #ef4444;
+}
+.error .iconWrap {
+    color: #dc2626;
+}
+
+.info {
+    border-left: 3.5px solid #3b82f6;
+}
+.info .iconWrap {
+    color: #2563eb;
+}
+
+/* ─── Progress bar (shrinks over 4.5 s) ─────────────────────── */
+.progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 0 0 0 14px;
+    width: 100%;
+    transform-origin: left;
+    animation: shrink 4.5s linear forwards;
+}
+.progress_success {
+    background: #22c55e;
+}
+.progress_error {
+    background: #ef4444;
+}
+.progress_info {
+    background: #3b82f6;
+}
+
+@keyframes shrink {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* ─── Icon ───────────────────────────────────────────────────── */
+.iconWrap {
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+}
+
+/* ─── Body ───────────────────────────────────────────────────── */
+.body {
+    flex: 1;
+    min-width: 0;
+}
+
+.title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.4;
+}
+
+.msg {
+    margin: 0.2rem 0 0;
+    font-size: 0.8rem;
+    color: #6b7280;
+    line-height: 1.45;
+}
+
+/* ─── Close button ───────────────────────────────────────────── */
+.closeBtn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        color 0.15s;
+    margin-top: 1px;
+}
+.closeBtn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* ─── Enter animation ────────────────────────────────────────── */
+.enter {
+    animation: slideIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(110%) scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* ─── Exit animation ─────────────────────────────────────────── */
+.exit {
+    animation: slideOut 0.32s cubic-bezier(0.55, 0, 1, 0.45) both;
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        max-height: 120px;
+        margin-bottom: 0;
+    }
+    to {
+        opacity: 0;
+        transform: translateX(110%) scale(0.92);
+        max-height: 0;
+        margin-bottom: -0.65rem;
+    }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .container {
+        bottom: 1rem;
+        right: 0.75rem;
+        left: 0.75rem;
+        width: auto;
+    }
+}

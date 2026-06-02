@@ -1,0 +1,454 @@
+/* ─── Layout shell ──────────────────────────────────────────────────────────── */
+
+.lmsLayout {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f6fa;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────────── */
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e8eaf0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+}
+
+.sidebarCollapsed {
+    width: 68px;
+}
+
+/* ─── Logo ───────────────────────────────────────────────────────────────────── */
+
+.sidebarLogo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px;
+    border-bottom: 1px solid #f0f1f5;
+    min-height: 68px;
+}
+
+.logoImg {
+    height: 46px;
+    object-fit: contain;
+}
+
+.logoIcon {
+    font-size: 14px;
+    font-weight: 800;
+    color: #f97316;
+    background: #fff3e0;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.collapseBtn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #f8f9fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6b7280;
+    flex-shrink: 0;
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+
+.collapseBtn:hover {
+    background: #f97316;
+    color: #fff;
+    border-color: #f97316;
+}
+
+/* ─── Nav ────────────────────────────────────────────────────────────────────── */
+
+.sidebarNav {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 0;
+    scrollbar-width: none;
+}
+
+.sidebarNav::-webkit-scrollbar {
+    display: none;
+}
+
+.navSection {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #9ca3af;
+    padding: 12px 20px 6px;
+    text-transform: uppercase;
+}
+
+.sectionDivider {
+    height: 1px;
+    background: #f0f1f5;
+    margin: 10px 12px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    margin: 2px 8px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 13.5px;
+    font-weight: 500;
+    position: relative;
+    transition:
+        background 0.15s,
+        color 0.15s;
+    white-space: nowrap;
+}
+
+.navItem:hover {
+    background: #fff5ee;
+    color: #f97316;
+}
+
+.navItemActive {
+    background: #fff5ee;
+    color: #f97316;
+    font-weight: 600;
+}
+
+.navIcon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: inherit;
+}
+
+.navLabel {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activeIndicator {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #f97316;
+    flex-shrink: 0;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    margin: 8px 8px 2px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    color: #ef4444;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    width: calc(100% - 16px);
+    transition: background 0.15s;
+    white-space: nowrap;
+}
+
+.logoutBtn:hover {
+    background: #fef2f2;
+}
+
+/* ─── Sidebar profile ────────────────────────────────────────────────────────── */
+
+.sidebarProfile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-top: 1px solid #f0f1f5;
+    background: #fafbfc;
+}
+
+.sidebarProfileCollapsed {
+    display: flex;
+    justify-content: center;
+    padding: 14px 0;
+    border-top: 1px solid #f0f1f5;
+}
+
+.profileAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.profileInfo {
+    overflow: hidden;
+}
+
+.profileName {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.profileEmail {
+    font-size: 11px;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+/* ─── Main content ───────────────────────────────────────────────────────────── */
+
+.mainContent {
+    flex: 1;
+    margin-left: 240px;
+    transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.mainContentExpanded {
+    margin-left: 68px;
+}
+
+/* ─── LMS header ─────────────────────────────────────────────────────────────── */
+
+.lmsHeader {
+    height: 64px;
+    background: #fff;
+    border-bottom: 1px solid #e8eaf0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    position: fixed;
+    top: 0;
+    left: 240px; /* matches sidebar width */
+    right: 0; /* stretches to the right edge */
+    z-index: 50;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* smooth when sidebar collapses */
+}
+.lmsHeaderExpanded {
+    left: 68px; /* matches collapsed sidebar width */
+}
+
+.mobileMenuBtn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #f8f9fc;
+    cursor: pointer;
+    color: #374151;
+}
+
+.lmsHeaderLeft {
+    flex: 1;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f6fa;
+    border: 1px solid #e8eaf0;
+    border-radius: 10px;
+    padding: 0 14px;
+    max-width: 360px;
+    height: 38px;
+    color: #9ca3af;
+    transition: border-color 0.15s;
+}
+
+.searchBar:focus-within {
+    border-color: #f97316;
+    background: #fff;
+}
+
+.searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 13.5px;
+    color: #374151;
+    width: 100%;
+}
+
+.searchInput::placeholder {
+    color: #9ca3af;
+}
+
+.lmsHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.headerIconBtn {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #e8eaf0;
+    border-radius: 10px;
+    background: #f8f9fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #374151;
+    transition: background 0.15s;
+}
+
+.headerIconBtn:hover {
+    background: #fff5ee;
+    color: #f97316;
+    border-color: #f97316;
+}
+
+.notifBadge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #f97316;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerProfile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid #e8eaf0;
+    border-radius: 24px;
+    background: #f8f9fc;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.headerProfile:hover {
+    background: #fff5ee;
+    border-color: #f97316;
+}
+
+.profileAvatarSm {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.headerProfileName {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ─── Page content ───────────────────────────────────────────────────────────── */
+
+.pageContent {
+    flex: 1;
+    padding: 80px 24px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+/* ─── Mobile overlay ─────────────────────────────────────────────────────────── */
+
+.mobileOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 99;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 240px !important;
+    }
+
+    .sidebarMobileOpen {
+        transform: translateX(0);
+    }
+
+    .mainContent {
+        margin-left: 0 !important;
+    }
+
+    .mobileMenuBtn {
+        display: flex;
+    }
+
+    .searchBar {
+        max-width: 100%;
+    }
+
+    .headerProfileName {
+        display: none;
+    }
+
+    .pageContent {
+        padding: 16px;
+    }
+}

@@ -1,0 +1,48 @@
+@import url("../public/assets/css/style.css");
+
+
+:root {
+  /* ================= COLORS ================= */
+
+  /* Brand */
+  --brand-primary: #EC7D01;
+
+  --bg-main: #03033C;
+  --bg-secondary: #060159;
+
+ 
+  --chip-light: #FFF3E5;
+  --chip-dark: #3B244A;
+
+  --gradient-primary: linear-gradient(135deg, #060159, #03053C);
+
+
+  :root {
+  /* ================= TEXT (Body / UI Text) ================= */
+
+  /* Base text → 14.4px → 16px (scales slightly with screen) */
+  --text-base: clamp(0.9rem, 1vw, 1rem);
+
+  /* Large text → 16px → 18px */
+  --text-lg: clamp(1rem, 1.2vw, 1.125rem);
+
+  /* Extra large text → 17.6px → 20px */
+  --text-xl: clamp(1.1rem, 1.5vw, 1.25rem);
+
+
+  /* ================= HEADINGS ================= */
+
+  /* Small heading (h4/h5) → 20px → 24px */
+  --heading-sm: clamp(1.25rem, 2vw, 1.5rem);
+
+  /* Medium heading (h3) → 24px → 30px */
+  --heading-md: clamp(1.5rem, 3vw, 1.875rem);
+
+  /* Large heading (h2) → 32px → 36px */
+  --heading-lg: clamp(2rem, 4vw, 2.25rem);
+
+  /* Main heading (h1 / hero) → 40px → 48px */
+  --heading-xl: clamp(2.5rem, 5vw, 3rem);
+}
+
+}

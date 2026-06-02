@@ -1,0 +1,180 @@
+.section {
+    background: #070b34;
+    padding: 80px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    box-sizing: border-box;
+}
+
+
+/* ── LEFT: Image card ── */
+
+.imageWrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 440px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+}
+
+
+/* 100% badge — top left */
+
+.badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(7, 11, 52, 0.85);
+    border-radius: 12px;
+    padding: 12px 18px;
+    backdrop-filter: blur(8px);
+}
+
+.badgePercent {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #f97316;
+    line-height: 1;
+    display: block;
+}
+
+.badgeLabel {
+    font-size: 0.85rem;
+    color: #fff;
+    font-weight: 500;
+    margin-top: 4px;
+    display: block;
+}
+
+
+/* Bottom label */
+
+.bottomLabel {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: #f97316;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 10px 20px;
+}
+
+
+/* ── RIGHT: Content ── */
+
+.content {
+    flex: 1;
+    max-width: 560px;
+}
+
+.heading {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    margin: 0 0 20px;
+}
+
+.heading span {
+    color: #f97316;
+}
+
+.subtext {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.75;
+    margin: 0 0 28px;
+    max-width: 540px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.listItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+.checkIcon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(249, 115, 22, 0.15);
+    border: 2px solid #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #f97316;
+    font-size: 0.7rem;
+}
+
+
+/* ── RESPONSIVE ── */
+
+@media (max-width: 1024px) {
+    .section {
+        padding: 60px 40px;
+        gap: 40px;
+    }
+    .imageWrap {
+        width: 360px;
+    }
+    .heading {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        flex-direction: column;
+        padding: 60px 24px;
+        gap: 36px;
+    }
+    .imageWrap {
+        width: 100%;
+        max-width: 480px;
+        align-self: center;
+    }
+    .heading {
+        font-size: 1.8rem;
+    }
+    .subtext {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 50px 18px;
+    }
+    .heading {
+        font-size: 1.55rem;
+    }
+    .badgePercent {
+        font-size: 1.6rem;
+    }
+}

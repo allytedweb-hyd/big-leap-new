@@ -1,0 +1,195 @@
+.section {
+    background: #ffffff;
+    padding: 80px 40px 90px;
+}
+
+
+/* ── Header ── */
+
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.heading {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 14px;
+    line-height: 1.3;
+}
+
+.highlight {
+    color: #f97316;
+}
+
+.subtext {
+    font-size: 0.95rem;
+    color: #6b7280;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+
+/* ── Flow container ── */
+
+.flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+/* ── Each step wrapper ── */
+
+.stepWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+
+/* label slots — fixed height so circles stay aligned */
+
+.labelSlot {
+    height: 36px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.labelTop {
+    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+.labelBottom {
+    align-items: flex-start;
+    margin-top: 12px;
+}
+
+.label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #111827;
+    white-space: nowrap;
+    text-align: center;
+}
+
+
+/* ── Circle row (icon + connecting line) ── */
+
+.circleRow {
+    display: flex;
+    align-items: center;
+}
+
+
+/* Icon circle */
+
+.circle {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s;
+}
+
+.circle:hover {
+    transform: scale(1.06);
+}
+
+
+/* Dashed connecting line */
+
+.line {
+    width: 60px;
+    height: 2px;
+    background-image: repeating-linear-gradient( to right, #d1d5db 0px, #d1d5db 8px, transparent 8px, transparent 16px);
+    flex-shrink: 0;
+}
+
+
+/* ── Get Hired circle ── */
+
+.getHiredCircle {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #1a2060;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(26, 32, 96, 0.35);
+}
+
+.getHiredCircle span {
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.35;
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 860px) {
+    .flow {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 40px;
+        gap: 0;
+    }
+    .stepWrapper {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+    }
+    .circleRow {
+        flex-direction: column;
+    }
+    .line {
+        width: 2px;
+        height: 48px;
+        background-image: repeating-linear-gradient( to bottom, #d1d5db 0px, #d1d5db 8px, transparent 8px, transparent 16px);
+    }
+    .labelSlot {
+        height: auto;
+        width: 160px;
+        padding-left: 20px;
+    }
+    .labelTop {
+        margin-bottom: 0;
+    }
+    .labelBottom {
+        margin-top: 0;
+    }
+    .label {
+        white-space: normal;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 60px 20px 70px;
+    }
+    .subtext br {
+        display: none;
+    }
+    .circle,
+    .getHiredCircle {
+        width: 72px;
+        height: 72px;
+    }
+}

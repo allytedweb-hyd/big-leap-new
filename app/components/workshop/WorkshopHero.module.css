@@ -1,0 +1,298 @@
+.section {
+    background: #0b0f3c;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* ── Grid pattern overlay ── */
+.gridOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(
+        ellipse 80% 80% at 50% 50%,
+        black 30%,
+        transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+        ellipse 80% 80% at 50% 50%,
+        black 30%,
+        transparent 100%
+    );
+}
+
+/* ── Layout container ── */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 110px 40px;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 64px;
+    align-items: center;
+    width: 100%;
+}
+
+/* ══════════════════════════
+   LEFT COLUMN
+══════════════════════════ */
+.leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Eyebrow pill */
+.eyebrow {
+    display: inline-block;
+    background: rgba(120, 50, 20, 0.75);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 28px;
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+/* Heading */
+.heading {
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 32px;
+}
+
+.orange {
+    color: #f97316;
+}
+
+/* ── Meta row ── */
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metaIconWrap {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.metaText {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* ── Learn section ── */
+.learnLabel {
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1.2px;
+    margin: 0 0 16px;
+}
+
+.learnCard {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    backdrop-filter: blur(6px);
+}
+
+.learnItem {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.4;
+}
+
+.learnCheck {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ══════════════════════════
+   RIGHT COLUMN — Form card
+══════════════════════════ */
+.rightCol {
+    display: flex;
+    align-items: stretch;
+}
+
+.formCard {
+    background: #fff;
+    border-radius: 24px;
+    padding: 44px 40px 40px;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.formTitle {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #0d0d2b;
+    text-align: center;
+    margin: 0 0 8px;
+}
+
+.formSubtitle {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    line-height: 1.55;
+    margin: 0 0 28px;
+}
+
+/* ── Inputs ── */
+.nameRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition:
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+.input::placeholder {
+    color: #aaa;
+}
+
+.input:focus {
+    background: #eef0f4;
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.22);
+}
+
+.fullWidth {
+    display: block;
+    margin-bottom: 12px;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* ── Submit button ── */
+.submitBtn {
+    width: 100%;
+    margin-top: 6px;
+    background: #f97316;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 20px 16px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: inherit;
+    transition:
+        background 0.2s,
+        transform 0.15s;
+}
+
+.submitBtn:hover {
+    background: #ea6c0a;
+    transform: translateY(-1px);
+}
+
+.arrowCircle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #0d0d2b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 60px 24px;
+    }
+
+    .rightCol {
+        max-width: 520px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .nameRow {
+        grid-template-columns: 1fr;
+    }
+
+    .formCard {
+        padding: 32px 20px 28px;
+    }
+
+    .metaRow {
+        gap: 16px;
+    }
+}

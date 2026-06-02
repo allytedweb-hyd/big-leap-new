@@ -1,0 +1,95 @@
+.hero {
+    background: #0b0f3c;
+    padding: 130px 0 100px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+/* Rating row */
+.ratingRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.ratingText {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.dot {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.students {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.students strong {
+    color: #f97316;
+    font-weight: 700;
+}
+
+/* Heading */
+.heading {
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0 0 20px;
+}
+
+.orange {
+    color: #f97316;
+}
+
+/* Description */
+.desc {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.7;
+    margin: 0 0 32px;
+    max-width: 520px;
+}
+
+/* Enroll button */
+.enrollBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f97316;
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    transition:
+        background 0.2s,
+        transform 0.15s;
+}
+
+.enrollBtn:hover {
+    background: #ea6c0a;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 48px 0 80px;
+    }
+}
