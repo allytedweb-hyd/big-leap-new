@@ -59,13 +59,11 @@ export default function Footer() {
           </div>
 
           {/* Programs */}
-          <div className={styles.linkCol}>
-            <ul className={styles.linkList}>
-              <li><a href="#" className={styles.link}>Programs</a></li>
-              <li><a href="#" className={styles.link}>Placements</a></li>
-              <li><a href="#" className={styles.link}>Industry Simulation</a></li>
-              <li><a href="#" className={styles.link}>LMS</a></li>
-              <li><a href="#" className={styles.link}>Workshops</a></li>
+          <div className={styles.linkCol}>             <ul className={styles.linkList}>
+              <li><a href="/courses" className={styles.link}>Programs</a></li>
+              <li><a href="/placements" className={styles.link}>Placements</a></li>
+              <li><a href="/industry-simulations" className={styles.link}>Industry Simulation</a></li>
+              <li><a href="/login-page" className={styles.link}>LMS</a></li>
             </ul>
           </div>
 
@@ -73,7 +71,7 @@ export default function Footer() {
           <div className={styles.linkCol}>
             <h4 className={styles.colTitle}>COMPANY</h4>
             <ul className={styles.linkList}>
-              <li><a href="#" className={styles.link}>About Us</a></li>
+              <li><a href="/aboutus" className={styles.link}>About Us</a></li>
               <li><a href="#" className={styles.link}>Terms & Conditions</a></li>
               <li><a href="#" className={styles.link}>Privacy Policy</a></li>
             </ul>

@@ -23,9 +23,6 @@ export default function CoursePricing({ title, price, keyHighlights, hours, cate
             <p className={styles.courseDesc}>
               Learn how data flows—from raw sources to powerful insights.
             </p>
-            <div className={styles.price}>
-              ₹{price.toLocaleString("en-IN")}
-            </div>
             <button className={styles.enrollBtn} onClick={scrollToContact}>
               Enroll Now
               <span className={styles.arrowCircle}>

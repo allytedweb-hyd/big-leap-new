@@ -12,8 +12,8 @@
 /* ── Left ── */
 
 .left {
-    flex: 0 0 380px;
-    min-width: 380px;
+    flex: 0 0 340px;
+    min-width: 340px;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -38,39 +38,7 @@
     font-size: 0.88rem;
     color: #a8b3d4;
     line-height: 1.7;
-    margin-bottom: 20px;
-}
-
-.statsRow {
-    display: flex;
-    gap: 28px;
-    margin-bottom: 14px;
-}
-
-.statItem {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.packageItem {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-bottom: 22px;
-}
-
-.statNum {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1;
-}
-
-.statLabel {
-    font-size: 0.75rem;
-    color: #a8b3d4;
-    font-weight: 400;
+    margin-bottom: 28px;
 }
 
 .ctaBtn {
@@ -83,6 +51,8 @@
     font-weight: 600;
     padding: 12px 24px;
     border-radius: 50px;
+    border: none;
+    cursor: pointer;
     text-decoration: none;
     transition: background 0.2s, transform 0.2s;
 }
@@ -155,8 +125,8 @@
 .logoCard {
     flex: 1 1 0;
     min-width: 120px;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.88);
+    height: 72px;
+    background: rgba(255, 255, 255, 0.92);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -171,9 +141,68 @@
 }
 
 .logoImg {
-    height: 22px;
-    max-width: 100px;
+    height: 30px;
+    max-width: 120px;
+    width: 100%;
     object-fit: contain;
+}
+
+
+/* ── Per-logo overrides for naturally small logos ── */
+
+.logoImg[data-logo="capgemini"] {
+    height: 54px;
+    max-width: 155px;
+}
+
+.logoImg[data-logo="cognizant"] {
+    height: 54px;
+    max-width: 155px;
+}
+
+.logoImg[data-logo="morgan-stanley"] {
+    height: 54px;
+    max-width: 165px;
+}
+
+.logoImg[data-logo="honeywell"] {
+    height: 54px;
+    max-width: 155px;
+}
+
+.logoImg[data-logo="dhl"] {
+    height: 54px;
+    max-width: 125px;
+}
+
+.logoImg[data-logo="oracle"] {
+    height: 50px;
+    max-width: 135px;
+}
+
+.logoImg[data-logo="tech-mahindra"] {
+    height: 54px;
+    max-width: 145px;
+}
+
+.logoImg[data-logo="genpact"] {
+    height: 54px;
+    max-width: 135px;
+}
+
+.logoImg[data-logo="tcs"] {
+    height: 54px;
+    max-width: 135px;
+}
+
+.logoImg[data-logo="hcl"] {
+    height: 54px;
+    max-width: 135px;
+}
+
+.logoImg[data-logo="kpmg"] {
+    height: 54px;
+    max-width: 135px;
 }
 
 
@@ -211,7 +240,6 @@
         width: 100%;
         overflow: hidden;
         padding: 0 0 48px 0;
-        /* fade edges */
         -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
         mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
@@ -220,32 +248,46 @@
         flex-direction: column;
         gap: 10px;
     }
-    /* Row scrolls left */
     .carouselRow {
         display: flex;
         gap: 10px;
-        animation: scrollLeft 18s linear infinite;
+        animation: scrollLeft 22s linear infinite;
         width: max-content;
     }
-    /* Row 2 scrolls right (opposite) */
     .carouselRowReverse {
-        animation: scrollRight 18s linear infinite;
+        animation: scrollRight 22s linear infinite;
     }
     .carouselCard {
-        flex: 0 0 110px;
-        height: 52px;
-        background: rgba(255, 255, 255, 0.9);
+        flex: 0 0 130px;
+        height: 64px;
+        background: rgba(255, 255, 255, 0.92);
         border-radius: 9px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px 12px;
+        padding: 8px 14px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
     .carouselImg {
-        height: 20px;
-        max-width: 86px;
+        height: 28px;
+        max-width: 100px;
+        width: 100%;
         object-fit: contain;
+    }
+    /* Mobile carousel per-logo overrides */
+    .carouselImg[data-logo="capgemini"],
+    .carouselImg[data-logo="cognizant"],
+    .carouselImg[data-logo="morgan-stanley"],
+    .carouselImg[data-logo="honeywell"],
+    .carouselImg[data-logo="dhl"],
+    .carouselImg[data-logo="oracle"],
+    .carouselImg[data-logo="tech-mahindra"],
+    .carouselImg[data-logo="genpact"],
+    .carouselImg[data-logo="tcs"],
+    .carouselImg[data-logo="hcl"],
+    .carouselImg[data-logo="kpmg"] {
+        height: 38px;
+        max-width: 110px;
     }
     @keyframes scrollLeft {
         0% {
@@ -263,4 +305,49 @@
             transform: translateX(0);
         }
     }
+}
+
+.logoImg {
+    max-width: 70%;
+    max-height: 50px;
+    object-fit: contain;
+}
+
+
+/* Small logos */
+
+.logoImg[data-logo="cognizant"] {
+    transform: scale(1.4);
+}
+
+.logoImg[data-logo="capgemini"] {
+    transform: scale(1.4);
+}
+
+.logoImg[data-logo="morgan-stanley"] {
+    transform: scale(1.7);
+}
+
+.logoImg[data-logo="genpact"] {
+    transform: scale(1.5);
+}
+
+.logoImg[data-logo="dhl"] {
+    transform: scale(1.4);
+}
+
+.logoImg[data-logo="tech-mahindra"] {
+    transform: scale(1.5);
+}
+
+.logoImg[data-logo="honeywell"] {
+    transform: scale(1.4);
+}
+
+.logoImg[data-logo="pwc"] {
+    transform: scale(1.3);
+}
+
+.logoImg[data-logo="wipro"] {
+    transform: scale(1.2);
 }

@@ -1,7 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
 import ReactStars from "react-rating-stars-component";
 import styles from "./CourseHero.module.css";
-import { scrollToContact } from "../../utils/scrollToContact";
 
 interface Props {
   title: string;
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function CourseHero({ title, description, category }: Props) {
+  const router = useRouter();
   const words = title.split(" ");
   const firstWord = words[0];
   const rest = words.slice(1).join(" ");
@@ -58,7 +59,7 @@ export default function CourseHero({ title, description, category }: Props) {
         {/* CTA */}
         <button
           className={styles.enrollBtn}
-          onClick={scrollToContact}
+          onClick={() => router.push("/login-page")}
         >
           Enroll Now &nbsp;→
         </button>
