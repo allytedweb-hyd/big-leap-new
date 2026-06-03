@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import "./WhyChooseUs.css";
+import { scrollToContact } from "@/app/utils/scrollToContact";
 
 const points = [
   "Industry Simulation Environment",
@@ -101,7 +102,7 @@ export default function WhyChooseUs() {
               ))}
             </div>
 
-            <button className="wcu-btn">Start Your Journey →</button>
+            <button className="wcu-btn"  onClick={scrollToContact}>Start Your Journey →</button>
           </div>
 
         </div>

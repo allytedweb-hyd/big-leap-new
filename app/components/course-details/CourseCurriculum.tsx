@@ -96,13 +96,27 @@ export default function CourseCurriculum({ curriculum }: Props) {
               </Accordion.Trigger>
 
               <Accordion.Content className={styles.content}>
-                <div className={styles.lessonsGrid}>
+                <div className={styles.lessonList}>
+                  <h4 className={styles.lessonListTitle}>Lesson Content</h4>
+
                   {chapter.lessons.map((lesson, lessonIdx) => (
-                    <LessonCard
-                      key={lesson._id}
-                      number={lessonIdx + 1}
-                      lesson={lesson}
-                    />
+                    <div key={lesson._id} className={styles.lessonItem}>
+                      <span className={styles.lessonIcon}>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="#f97316">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </span>
+
+                      <span className={styles.lessonText}>
+                        {lesson.title}
+                      </span>
+
+                      {lesson.duration > 0 && (
+                        <span className={styles.lessonTime}>
+                          {formatDuration(lesson.duration)}
+                        </span>
+                      )}
+                    </div>
                   ))}
                 </div>
               </Accordion.Content>

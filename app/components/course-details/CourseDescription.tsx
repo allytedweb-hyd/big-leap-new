@@ -9,10 +9,11 @@ export default function CourseDescription({ descriptionTwo, learningOutcomesPoin
   return (
     <section className={styles.section}>
       <div className={styles.container}>
+            <h2 className={styles.overviewHeading}>Overview</h2>
         <p className={styles.para}>{descriptionTwo}</p>
 
-        <h2 className={styles.overviewHeading}>Overview</h2>
-
+    
+{/* 
         <ul className={styles.overviewList}>
           {learningOutcomesPoints.map((point, i) => (
             <li key={i} className={styles.overviewItem}>
@@ -20,7 +21,7 @@ export default function CourseDescription({ descriptionTwo, learningOutcomesPoin
               {point}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </section>
   );

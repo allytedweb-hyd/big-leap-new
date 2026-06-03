@@ -1,6 +1,6 @@
 import styles from "./PlacementsHowWeHelp.module.css";
+import React from "react";
 
-// SVG icons matching the navy icon style in the design
 const IconSkills = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
     <circle cx="24" cy="18" r="8" stroke="#1a2060" strokeWidth="2.5"/>
@@ -16,6 +16,14 @@ const IconProjects = () => (
     <path d="M18 28h12M18 33h8" stroke="#1a2060" strokeWidth="2.5" strokeLinecap="round"/>
     <circle cx="34" cy="14" r="5" fill="#1a2060"/>
     <path d="M31 14l2 2 4-4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const IconSimulation = () => (
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+    <rect x="8" y="10" width="32" height="22" rx="3" stroke="#1a2060" strokeWidth="2.5"/>
+    <path d="M18 36h12M24 32v4" stroke="#1a2060" strokeWidth="2.5" strokeLinecap="round"/>
+    <path d="M20 22l4-5 4 3 4-5" stroke="#1a2060" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -46,17 +54,17 @@ const IconPlacement = () => (
 );
 
 const steps = [
-  { id: 1, label: "Learn Industry Skills",  position: "bottom", Icon: IconSkills },
-  { id: 2, label: "Build Real Projects",    position: "top",    Icon: IconProjects },
-  { id: 3, label: "Resume Preparation",     position: "bottom", Icon: IconResume },
-  { id: 4, label: "Mock Interviews",        position: "top",    Icon: IconInterview },
-  { id: 5, label: "Placement Drives",       position: "bottom", Icon: IconPlacement },
+  { id: 1, label: "Learn Industry Skills",   Icon: IconSkills },
+  { id: 2, label: "Build Real Projects",     Icon: IconProjects },
+  { id: 3, label: "Industry Simulations",    Icon: IconSimulation },
+  { id: 4, label: "Resume Preparation",      Icon: IconResume },
+  { id: 5, label: "Mock Interviews",         Icon: IconInterview },
+  { id: 6, label: "Placement Drives",        Icon: IconPlacement },
 ];
 
 export default function PlacementsHowWeHelp() {
   return (
     <section className={styles.section}>
-      {/* Header */}
       <div className={styles.header}>
         <h2 className={styles.heading}>
           How We Help You <span className={styles.highlight}>Get Placed</span>
@@ -68,45 +76,32 @@ export default function PlacementsHowWeHelp() {
         </p>
       </div>
 
-      {/* Flow */}
       <div className={styles.flow}>
         {steps.map((step, i) => (
-          <div key={step.id} className={styles.stepWrapper}>
-            {/* Top label */}
-            <div className={`${styles.labelSlot} ${styles.labelTop}`}>
-              {step.position === "top" && (
-                <span className={styles.label}>{step.label}</span>
-              )}
-            </div>
-
-            {/* Circle + connecting line */}
-            <div className={styles.circleRow}>
+          <React.Fragment key={step.id}>
+            <div className={styles.stepWrapper}>
               <div className={styles.circle}>
                 <step.Icon />
               </div>
-              {i < steps.length - 1 && (
+              <p className={styles.label}>{step.label}</p>
+            </div>
+            {i < steps.length - 1 && (
+              <div className={styles.connectorWrapper}>
                 <div className={styles.line} />
-              )}
-            </div>
-
-            {/* Bottom label */}
-            <div className={`${styles.labelSlot} ${styles.labelBottom}`}>
-              {step.position === "bottom" && (
-                <span className={styles.label}>{step.label}</span>
-              )}
-            </div>
-          </div>
+              </div>
+            )}
+          </React.Fragment>
         ))}
 
-        {/* Get Hired end circle */}
+        {/* Get Hired */}
+        <div className={styles.connectorWrapper}>
+          <div className={styles.line} />
+        </div>
         <div className={styles.stepWrapper}>
-          <div className={styles.labelSlot} />
-          <div className={styles.circleRow}>
-            <div className={styles.getHiredCircle}>
-              <span>Get<br />Hired</span>
-            </div>
+          <div className={styles.getHiredCircle}>
+            <span>Get<br />Hired</span>
           </div>
-          <div className={styles.labelSlot} />
+          <p className={styles.label}>&nbsp;</p>
         </div>
       </div>
     </section>

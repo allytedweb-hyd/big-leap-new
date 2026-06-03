@@ -27,13 +27,46 @@ interface StudentData {
 // ─── Tech logos ───────────────────────────────────────────────────────────────
 
 const techLogos = [
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", alt: "C++", style: { top: "14%", left: "20%" } },
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg", alt: "R", style: { top: "30%", left: "8%" } },
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", alt: "Python", style: { top: "32%", left: "30%" } },
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg", alt: "Kotlin", style: { top: "22%", left: "46%" } },
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg", alt: "Spring", style: { top: "48%", left: "14%" } },
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", alt: "TypeScript", style: { top: "46%", left: "36%" } },
-  { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", alt: "JavaScript", style: { top: "62%", left: "22%" } },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    alt: "Python",
+    style: { top: "32%", left: "30%" }
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    alt: "SQL",
+    style: { top: "24%", left: "20%" }
+  },
+  // {
+  //   src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+  //   alt: "PySpark",
+  //   style: { top: "30%", left: "8%" }
+  // },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg",
+    alt: "Hadoop",
+    style: { top: "22%", left: "46%" }
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+    alt: "Azure",
+    style: { top: "48%", left: "14%" }
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+    alt: "GCP",
+    style: { top: "46%", left: "36%" }
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/databricks/databricks-icon.svg",
+    alt: "Databricks",
+    style: { top: "62%", left: "22%" }
+  },
+  // {
+  //   src: "https://www.vectorlogo.zone/logos/apache_hive/apache_hive-icon.svg",
+  //   alt: "Hive",
+  //   style: { top: "60%", left: "44%" }
+  // }
 ];
 
 const carouselSlides = ["Grow with projects", "Learn from experts", "Build your career"];

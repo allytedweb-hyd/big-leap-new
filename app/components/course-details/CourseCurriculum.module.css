@@ -1,5 +1,5 @@
 .section {
-    background: #fff9f4;
+    background: #ffffff;
     padding: 72px 0 88px;
 }
 
@@ -9,10 +9,12 @@
     padding: 0 32px;
 }
 
-/* ── Header ── */
+
+/* Header */
+
 .eyebrow {
     display: inline-block;
-    background: #fff0e0;
+    background: #ffffff;
     color: #f97316;
     font-size: 11px;
     font-weight: 800;
@@ -39,50 +41,35 @@
 .meta {
     font-size: 14px;
     color: #777;
-    margin: 0 0 40px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
+    margin-bottom: 40px;
 }
 
-/* ── Accordion ── */
+
+/* Accordion */
+
 .accordion {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Each accordion item = outer card */
 .item {
-    background: #fff;
-    border: 1.5px solid #e8e8e8;
-    border-radius: 16px;
+    background: #fffefe;
+    border: 1px solid #ececec;
+    border-radius: 18px;
     overflow: hidden;
-    transition: border-color 0.2s;
 }
 
-.item[data-state="open"] {
-    border-color: #e0e0e0;
-}
-
-/* ── Trigger row ── */
 .trigger {
     width: 100%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+    padding: 22px 24px;
     text-align: left;
-    gap: 16px;
-    transition: background 0.15s;
-}
-
-.trigger:hover {
-    background: #fafafa;
 }
 
 .triggerLeft {
@@ -91,71 +78,63 @@
     gap: 16px;
 }
 
-/* Chapter number badge */
 .chapterNum {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
     background: #f97316;
     color: #fff;
-    font-size: 17px;
-    font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    flex-shrink: 0;
 }
 
 .chapterMeta {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
 }
 
 .chapterDuration {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 800;
     color: #f97316;
-    letter-spacing: 0.2px;
 }
 
 .chapterTitle {
-    font-size: 15.5px;
+    font-size: 20px;
     font-weight: 700;
     color: #0d0d2b;
-    line-height: 1.3;
 }
 
-/* Chevron circle */
 .chevronWrap {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
     background: #f97316;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.25s ease;
+    flex-shrink: 0;
 }
 
-/* Rotate chevron when closed */
 .item[data-state="closed"] .chevronWrap {
     transform: rotate(180deg);
 }
 
-/* ── Accordion content ── */
 .content {
     overflow: hidden;
 }
 
-/* Radix animates data-state */
 .content[data-state="open"] {
-    animation: slideDown 0.28s ease;
+    animation: slideDown 0.3s ease;
 }
 
 .content[data-state="closed"] {
-    animation: slideUp 0.28s ease;
+    animation: slideUp 0.3s ease;
 }
 
 @keyframes slideDown {
@@ -180,89 +159,67 @@
     }
 }
 
-/* Lessons grid inside content */
-.lessonsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    padding: 8px 24px 28px;
-    border-top: 1.5px solid #f0f0f0;
+
+/* Lesson List */
+
+.lessonList {
+    padding: 24px;
+    border-top: 1px solid #f1f1f1;
 }
 
-/* ── Lesson card ── */
-.lessonCard {
-    background: #f9f9f9;
-    border: 1px solid #ebebeb;
-    border-radius: 14px;
-    padding: 18px 16px;
-    transition:
-        box-shadow 0.2s,
-        transform 0.2s;
+.lessonListTitle {
+    margin: 0 0 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #666;
 }
 
-.lessonCard:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-}
-
-.lessonHeader {
+.lessonItem {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 12px;
+    padding: 12px 0;
 }
 
-/* Orange video icon pill */
-.videoIcon {
-    width: 28px;
-    height: 22px;
+.lessonIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     background: #fff0e0;
-    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
 
-.lessonLabel {
-    font-size: 14px;
-    font-weight: 700;
-    color: #0d0d2b;
+.lessonText {
+    flex: 1;
+    font-size: 16px;
+    color: #1f2937;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
-.lessonTitle {
+.lessonTime {
     font-size: 13px;
-    font-weight: 700;
-    color: #0d0d2b;
-    line-height: 1.4;
-    margin: 0 0 8px;
+    color: #888;
+    white-space: nowrap;
 }
 
-.lessonDesc {
-    font-size: 12.5px;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-}
 
-/* ── Responsive ── */
+/* Mobile */
+
 @media (max-width: 768px) {
-    .lessonsGrid {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 8px 16px 24px;
-    }
-
-    .trigger {
-        padding: 16px 18px;
-    }
-}
-
-@media (max-width: 520px) {
-    .lessonsGrid {
-        grid-template-columns: 1fr;
-    }
-
     .container {
-        padding: 0 16px;
+        padding: 0 18px;
+    }
+    .trigger {
+        padding: 18px;
+    }
+    .lessonList {
+        padding: 18px;
+    }
+    .lessonText {
+        font-size: 14px;
     }
 }

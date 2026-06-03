@@ -42,24 +42,24 @@ export default function ProgramsHeroSection() {
 
       {/* FLOATING TECH ICONS */}
       <img
-        src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png"
+        src="./assets/images/azure.png"
         className={`${styles.icon} ${styles.js}`}
-        alt="JavaScript"
+        alt="azure"
       />
       <img
-        src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png"
+        src="./assets/images/hadoop.png"
         className={`${styles.icon} ${styles.python}`}
-        alt="Python"
+        alt="hadoop"
       />
       <img
-        src="https://cdn-icons-png.flaticon.com/512/732/732212.png"
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
         className={`${styles.icon} ${styles.angular}`}
-        alt="Angular"
+        alt="python"
       />
       <img
-        src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png"
+        src="./assets/images/SQL.png"
         className={`${styles.icon} ${styles.c}`}
-        alt="C"
+        alt="pyspark"
       />
 
     </section>

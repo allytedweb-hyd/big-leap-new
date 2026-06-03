@@ -79,7 +79,7 @@
 
 .icon {
     position: absolute;
-    width: 35px;
+    width: 45px;
     animation: float 4s ease-in-out infinite;
     z-index: 2;
 }
@@ -91,6 +91,12 @@
 
 .python {
     top: 25%;
+    right: 38%;
+}
+
+.python {
+    width: 120px;
+    top: 19%;
     right: 38%;
 }
 
