@@ -59,7 +59,8 @@ export default function Footer() {
           </div>
 
           {/* Programs */}
-          <div className={styles.linkCol}>             <ul className={styles.linkList}>
+          <div className={styles.linkCol}>
+            <ul className={styles.linkList}>
               <li><a href="/courses" className={styles.link}>Programs</a></li>
               <li><a href="/placements" className={styles.link}>Placements</a></li>
               <li><a href="/industry-simulations" className={styles.link}>Industry Simulation</a></li>
@@ -92,14 +93,14 @@ export default function Footer() {
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.addressIcon}>
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.86a16 16 0 006.29 6.29l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                 </svg>
-                <span>+91 7075471611</span>
+                <a href="tel:+917075471611" className={styles.link}>+91 7075471611</a>
               </li>
               <li className={styles.addressItem}>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.addressIcon}>
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
-                <span>info@bigleaptech.in</span>
+                <a href="mailto:info@bigleaptech.in" className={styles.link}>info@bigleaptech.in</a>
               </li>
             </ul>
           </div>

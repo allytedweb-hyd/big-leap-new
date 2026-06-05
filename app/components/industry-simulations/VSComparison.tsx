@@ -1,12 +1,20 @@
 "use client";
 import styles from "./VSComparison.module.css";
 
-const POINTS = [
-  "Focuses mainly on concepts only",
+const TRADITIONAL = [
+  "Focus mainly on concepts only",
   "Small, isolated practice examples",
   "No exposure to real workflows",
   "No debugging of actual failures",
   "No cloud or production experience",
+];
+
+const SIMULATION = [
+  "Focuses on execution, workflows, and real delivery",
+  "Production-scale, real-world pipelines and data",
+  "Sprint boards, standups, and engineering delivery cycles",
+  "Deliberately introduced failures — you diagnose and fix them",
+  "Hands-on with AWS, Azure, GCP from day one",
 ];
 
 export default function VSComparison() {
@@ -16,45 +24,48 @@ export default function VSComparison() {
         Traditional Learning vs <br />
         <span>Industry Simulation</span>
       </h2>
+
       <p className={styles.subtext}>
-        See the clear difference between passive learning and real
-        engineering experience.
+        See the clear difference between passive learning and real engineering
+        experience.
       </p>
 
       <div className={styles.card}>
-        {/* LEFT — Traditional */}
+        {/* Left Side */}
         <div className={styles.col}>
           <div className={styles.colHeader}>
             <span className={styles.colIcon}>📚</span>
             Traditional Learning
           </div>
+
           <ul className={styles.list}>
-            {POINTS.map((p) => (
-              <li key={p} className={styles.item}>
-                <div className={styles.cross}>✕</div>
-                {p}
+            {TRADITIONAL.map((point) => (
+              <li key={point} className={styles.item}>
+                <span className={styles.cross}>✕</span>
+                {point}
               </li>
             ))}
           </ul>
         </div>
 
-        {/* CENTER divider */}
+        {/* Center */}
         <div className={styles.divider}>
           <span className={styles.bolt}>⚡</span>
           <span className={styles.vsText}>VS</span>
         </div>
 
-        {/* RIGHT — Industry Simulation */}
+        {/* Right Side */}
         <div className={styles.col}>
           <div className={styles.colHeader}>
             <span className={styles.colIcon}>🏭</span>
             Industry Simulation
           </div>
+
           <ul className={styles.list}>
-            {POINTS.map((p) => (
-              <li key={p} className={styles.item}>
+            {SIMULATION.map((point) => (
+              <li key={point} className={styles.item}>
                 <span className={styles.check}>✓</span>
-                {p}
+                {point}
               </li>
             ))}
           </ul>
