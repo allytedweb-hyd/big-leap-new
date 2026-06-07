@@ -96,11 +96,13 @@ export default async function IndividualCoursePage({
         description={course.descriptionOne}
         category={course.technology?.name}
       />
-      <CourseVideo
-        demoUrl={course.demoUrl}
-        thumbnailUrl={thumbnailUrl}
-        title={course.title}
-      />
+{course.demoUrl?.trim() && (
+  <CourseVideo
+    demoUrl={course.demoUrl}
+    thumbnailUrl={thumbnailUrl}
+    title={course.title}
+  />
+)}
       <CourseDescription
         descriptionTwo={course.descriptionTwo}
         learningOutcomesPoints={course.learningOutcomesPoints}
