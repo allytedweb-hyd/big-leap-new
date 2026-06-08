@@ -1,0 +1,124 @@
+.section {
+    background: #03033c;
+    padding: 80px 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.lastUpdated {
+    text-align: center;
+    color: #cbd5e1;
+    margin-bottom: 40px;
+}
+
+.intro {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.policyBlock {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s ease;
+}
+
+.policyBlock:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.policyBlock h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.policyBlock h3 {
+    font-size: 1.1rem;
+    color: #60a5fa;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.policyBlock p {
+    color: #dbeafe;
+    line-height: 1.8;
+}
+
+.policyBlock ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.policyBlock li {
+    color: #dbeafe;
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
+.contactBox {
+    margin-top: 15px;
+    background: rgba(96, 165, 250, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-left: 4px solid #60a5fa;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.contactBox strong {
+    color: #ffffff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.contactBox p {
+    color: #dbeafe;
+    margin: 6px 0;
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 16px;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .policyBlock {
+        padding: 20px;
+    }
+
+    .policyBlock h2 {
+        font-size: 1.25rem;
+    }
+
+    .intro {
+        text-align: left;
+    }
+}

@@ -73,8 +73,8 @@ export default function Footer() {
             <h4 className={styles.colTitle}>COMPANY</h4>
             <ul className={styles.linkList}>
               <li><a href="/aboutus" className={styles.link}>About Us</a></li>
-              <li><a href="#" className={styles.link}>Terms & Conditions</a></li>
-              <li><a href="#" className={styles.link}>Privacy Policy</a></li>
+              <li><a href="/terms-conditions" className={styles.link}>Terms & Conditions</a></li>
+              <li><a href="/privacy-policy" className={styles.link}>Privacy Policy</a></li>
             </ul>
           </div>
 
