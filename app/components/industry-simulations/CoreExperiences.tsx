@@ -54,8 +54,7 @@ export default function CoreExperiences() {
         8 Core Engineering <span>Experiences</span>
       </h2>
       <p className={styles.subtext}>
-        Every module reflects how top engineers actually work inside
-        companies like Amazon, Microsoft, and Google.
+        Every module reflects how top engineers actually work inside leading tech companies
       </p>
 
       <div className={styles.grid}>

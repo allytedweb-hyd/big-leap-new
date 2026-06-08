@@ -14,7 +14,7 @@ const SIMULATION = [
   "Production-scale, real-world pipelines and data",
   "Sprint boards, standups, and engineering delivery cycles",
   "Deliberately introduced failures — you diagnose and fix them",
-  "Hands-on with AWS, Azure, GCP from day one",
+  "Hands-on with Azure, GCP from day one",
 ];
 
 export default function VSComparison() {
