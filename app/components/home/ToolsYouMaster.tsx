@@ -94,7 +94,7 @@ export default function ToolsYouMaster() {
         Industry-Grade <span>Tech Stack</span>
       </h2>
       <p className="tools-subtext">
-        The exact same tools used by data engineers at top companies like Amazon, Google, and Microsoft.
+        Master the industry-standard tools, platforms, and technologies used by modern Data Engineers worldwide.
       </p>
     </>
   );

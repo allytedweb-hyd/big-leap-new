@@ -10,6 +10,7 @@ import CourseCertificate from "../../../../components/course-details/CourseCerti
 import CourseReviews from "../../../../components/course-details/CourseReviews";
 import Courses from "../../../../components/home/Courses";
 import { BASE_API_URL, UPLOADS_URL } from "../../../../utils/api";
+import CourseGrid from "../../../../components/courses/CoursesGrid";
 
 interface Lesson {
   _id: string;
@@ -123,8 +124,8 @@ export default async function IndividualCoursePage({
         category={course.technology?.name}
       />
       <CourseCertificate />
-      <CourseReviews />
-      <Courses />
+      {/* <CourseReviews /> */}
+     <CourseGrid />
     </main>
   );
 }

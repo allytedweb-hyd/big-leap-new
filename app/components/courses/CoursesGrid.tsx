@@ -110,9 +110,6 @@ export default function CoursesGrid() {
               Explore Our World's Best{" "}
               <span className={styles.orange}>Courses</span>
             </h2>
-            <p className={styles.subText}>
-              When known printer took a galley of type scrambl edmake
-            </p>
           </div>
 
           <div className={styles.grid}>

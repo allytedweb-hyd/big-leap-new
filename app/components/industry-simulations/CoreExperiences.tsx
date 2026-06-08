@@ -26,7 +26,7 @@ const CARDS = [
   {
     icon: "☁️",
     title: "Cloud & Big Data Exposure",
-    desc: "Hands-on with AWS, Azure, and GCP, plus big data technologies used in modern ecosystems.",
+    desc: "Hands-on with Azure, and GCP, plus big data technologies used in modern ecosystems.",
   },
   {
     icon: "📊",
