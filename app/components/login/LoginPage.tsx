@@ -453,11 +453,11 @@ const handleForgotResendOtp = async () => {
   }, []);
 
   // ── Live register validation ──────────────────────────────────────────────────
-  useEffect(() => {
-    if (regTouched) {
-      setRegErrors(validateRegister(regFullName, regEmail, regMobile, regPassword, regConfirm));
-    }
-  }, [regFullName, regEmail, regMobile, regPassword, regConfirm, regTouched]);
+  // useEffect(() => {
+  //   if (regTouched) {
+  //     setRegErrors(validateRegister(regFullName, regEmail, regMobile, regPassword, regConfirm));
+  //   }
+  // }, [regFullName, regEmail, regMobile, regPassword, regConfirm, regTouched]);
 
   // ── Login: email + password ───────────────────────────────────────────────────
 
@@ -551,31 +551,73 @@ const handleForgotResendOtp = async () => {
 
   // ── Register: submit details ──────────────────────────────────────────────────
 
-  const handleRegisterSubmit = async () => {
-    setRegTouched(true);
-    const errs = validateRegister(regFullName, regEmail, regMobile, regPassword, regConfirm);
-    setRegErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+ const handleRegisterSubmit = async () => {
+  if (regLoading) return;
 
-    setRegLoading(true);
-    try {
-      const res = await httpClient.post("/auth/student/register", {
+  setRegTouched(true);
+
+  const errs = validateRegister(
+    regFullName,
+    regEmail,
+    regMobile,
+    regPassword,
+    regConfirm
+  );
+
+  setRegErrors(errs);
+
+  if (Object.keys(errs).length > 0) {
+    return;
+  }
+
+  setRegLoading(true);
+
+  try {
+    console.log("REGISTER REQUEST");
+
+    const res = await httpClient.post(
+      "/auth/student/register",
+      {
         studentName: regFullName.trim(),
         email: regEmail.trim().toLowerCase(),
         mobileNumber: regMobile.trim(),
         password: regPassword,
-      });
-      setRegStudentId(res.data.studentId);
-      setRegStep("otp");
-      regTimer.start();
-      success("OTP Sent!", `Check your inbox at ${maskEmail(regEmail)}.`);
-    } catch (err: any) {
-      const msg = err?.response?.data?.message || "Registration failed. Please try again.";
-      error("Registration Failed", msg);
-    } finally {
-      setRegLoading(false);
+      }
+    );
+
+    console.log("REGISTER RESPONSE", res.data);
+
+    const studentId =
+      res.data.studentId ||
+      res.data.student?._id ||
+      res.data.data?._id;
+
+    if (!studentId) {
+      throw new Error("Student ID not returned from API");
     }
-  };
+
+    setRegStudentId(studentId);
+
+    setRegStep("otp");
+
+    regTimer.start();
+
+    success(
+      "OTP Sent!",
+      `Check your inbox at ${maskEmail(regEmail)}.`
+    );
+  } catch (err: any) {
+    console.log("REGISTER ERROR", err?.response?.data);
+
+    const msg =
+      err?.response?.data?.message ||
+      "Registration failed. Please try again.";
+
+    error("Registration Failed", msg);
+  } finally {
+    setRegLoading(false);
+  }
+};
 
   // ── Register: verify OTP ──────────────────────────────────────────────────────
 
@@ -1076,7 +1118,7 @@ const handleForgotResendOtp = async () => {
                       className={`${styles.input} ${regTouched && regErrors.fullName ? styles.inputError : ""}`}
                       value={regFullName}
                       onChange={(e) => setRegFullName(e.target.value)}
-                      onBlur={() => setRegTouched(true)}
+                      // onBlur={() => setRegTouched(true)}
                     />
                     <FieldError msg={regErrors.fullName} />
                   </div>
@@ -1089,7 +1131,7 @@ const handleForgotResendOtp = async () => {
                       className={`${styles.input} ${regTouched && regErrors.email ? styles.inputError : ""}`}
                       value={regEmail}
                       onChange={(e) => setRegEmail(e.target.value)}
-                      onBlur={() => setRegTouched(true)}
+                      // onBlur={() => setRegTouched(true)}
                     />
                     <FieldError msg={regErrors.email} />
                   </div>
@@ -1105,7 +1147,7 @@ const handleForgotResendOtp = async () => {
                         className={`${styles.input} ${styles.phoneInput} ${regTouched && regErrors.mobile ? styles.inputError : ""}`}
                         value={regMobile}
                         onChange={(e) => setRegMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                        onBlur={() => setRegTouched(true)}
+                        // onBlur={() => setRegTouched(true)}
                       />
                     </div>
                     <FieldError msg={regErrors.mobile} />
@@ -1120,7 +1162,7 @@ const handleForgotResendOtp = async () => {
                         className={`${styles.input} ${regTouched && regErrors.password ? styles.inputError : ""}`}
                         value={regPassword}
                         onChange={(e) => setRegPassword(e.target.value)}
-                        onBlur={() => setRegTouched(true)}
+                        // onBlur={() => setRegTouched(true)}
                       />
                       <button className={styles.eyeBtn} type="button" onClick={() => setShowRegPw((p) => !p)}>
                         <EyeIcon open={showRegPw} />
@@ -1138,7 +1180,7 @@ const handleForgotResendOtp = async () => {
                         className={`${styles.input} ${regTouched && regErrors.confirmPassword ? styles.inputError : ""}`}
                         value={regConfirm}
                         onChange={(e) => setRegConfirm(e.target.value)}
-                        onBlur={() => setRegTouched(true)}
+                        // onBlur={() => setRegTouched(true)}
                       />
                       <button className={styles.eyeBtn} type="button" onClick={() => setShowRegConfirm((p) => !p)}>
                         <EyeIcon open={showRegConfirm} />
@@ -1147,13 +1189,18 @@ const handleForgotResendOtp = async () => {
                     <FieldError msg={regErrors.confirmPassword} />
                   </div>
 
-                  <button
-                    className={styles.primaryBtn}
-                    onClick={handleRegisterSubmit}
-                    disabled={regLoading}
-                  >
-                    {regLoading ? <span className={styles.spinner} /> : "Send OTP"}
-                  </button>
+                 <button
+  type="button"
+  className={styles.primaryBtn}
+  onClick={handleRegisterSubmit}
+  disabled={regLoading}
+>
+  {regLoading ? (
+    <span className={styles.spinner} />
+  ) : (
+    "Send OTP"
+  )}
+</button>
                 </>
               )}
 

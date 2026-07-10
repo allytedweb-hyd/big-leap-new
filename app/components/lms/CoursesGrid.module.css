@@ -784,3 +784,74 @@
 .doneBtn:hover {
     background: #f97316;
 }
+/*
+  Paste these additions into your existing CoursesGrid.module.css
+  These styles cover the new Razorpay trust badge, failed state, and payment ID display.
+*/
+
+/* ── Razorpay trust badge ── */
+.razorpayBadge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.razorpayBadge svg {
+    flex-shrink: 0;
+    color: #16a34a;
+}
+
+/* ── Payment failed state ── */
+.modalFailed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 0 8px;
+    text-align: center;
+}
+
+.failedIcon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalFailed h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+}
+
+.modalFailed p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    max-width: 280px;
+}
+
+/* ── Payment ID in success details ── */
+.paymentId {
+    font-family: monospace;
+    font-size: 11px;
+    color: #555;
+    word-break: break-all;
+    text-align: right;
+    max-width: 160px;
+}

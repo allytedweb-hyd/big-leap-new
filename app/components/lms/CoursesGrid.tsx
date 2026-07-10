@@ -19,13 +19,19 @@ interface Course {
 interface Enrollment {
   _id: string;
   courseId: { _id: string; title: string; coursePrice: number };
-  studentId: { _id: string; name: string; email: string };
+  studentId: { _id: string; studentName?: string; name?: string; email: string };
   totalFee: number;
-  paidAmount: number;
+  paidamount: number;
   paymentStatus: "pending" | "paid" | "failed";
+  razorpayOrderId?: string;
+  razorpayPaymentId?: string;
 }
 
-type ModalStep = "confirm" | "confirming" | "success";
+type ModalStep =
+  | "confirm"      // initial summary screen
+  | "processing"   // waiting for Razorpay SDK / backend
+  | "success"      // payment verified OK
+  | "failed";      // payment failed
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -50,6 +56,21 @@ const PAYMENT_STATUS_META: Record<
   pending: { label: "Pending", color: "#d97706", bg: "#fef3c7", icon: "⏳" },
   failed:  { label: "Failed",  color: "#dc2626", bg: "#fee2e2", icon: "✕" },
 };
+
+// ─── Razorpay script loader ───────────────────────────────────────────────────
+
+function loadRazorpayScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined") return resolve(false);
+    if ((window as any).Razorpay) return resolve(true);
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
 
 // ─── Star Rating ──────────────────────────────────────────────────────────────
 
@@ -93,52 +114,192 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
     }
   })();
 
-  const handleEnroll = async () => {
-    setError(null);
+  const studentName = student?.studentName ?? student?.name ?? "";
 
+  // ── Free course enrollment ────────────────────────────────────────────────
+  const handleFreeEnroll = async () => {
+    if (!student?._id) {
+      setError("Student session not found. Please log in again.");
+      return;
+    }
+    setStep("processing");
+    try {
+      const { data } = await httpClient.post("/payments/create-order", {
+        courseId: course._id,
+        studentId: student._id,
+      });
+      // Backend returns { free: true, enrollment }
+      setResult(data.enrollment);
+      onSuccess(data.enrollment);
+      setStep("success");
+    } catch (err: any) {
+      setError(err?.response?.data?.message || "Enrollment failed. Please try again.");
+      setStep("confirm");
+    }
+  };
+
+  // ── Paid course — Razorpay flow ───────────────────────────────────────────
+  const handlePaidEnroll = async () => {
     if (!student?._id) {
       setError("Student session not found. Please log in again.");
       return;
     }
 
-    setStep("confirming");
+    setStep("processing");
+    setError(null);
+
+    // 1. Load Razorpay SDK
+    const loaded = await loadRazorpayScript();
+    if (!loaded) {
+      setError("Failed to load Razorpay. Please check your connection.");
+      setStep("confirm");
+      return;
+    }
+
+    // 2. Create order on backend
+    let orderData: {
+      orderId: string;
+      amount: number;
+      currency: string;
+      keyId: string;
+      courseName: string;
+      studentName: string;
+      studentEmail: string;
+      studentContact: string;
+    };
+
     try {
-      const { data } = await httpClient.post("/enrollments", {
+      const { data } = await httpClient.post("/payments/create-order", {
         courseId: course._id,
         studentId: student._id,
-        totalFee: course.coursePrice,
-        paidAmount: course.coursePrice,
-        paymentStatus: "paid",
       });
-      setResult(data.enrollment);
-      onSuccess(data.enrollment);
-      setStep("success");
+
+      // Free course returned unexpectedly — handle gracefully
+      if (data.free) {
+        setResult(data.enrollment);
+        onSuccess(data.enrollment);
+        setStep("success");
+        return;
+      }
+
+      orderData = data;
     } catch (err: any) {
-      setError(
-        err?.response?.data?.message || "Enrollment failed. Please try again."
-      );
+      setError(err?.response?.data?.message || "Failed to create order. Please try again.");
       setStep("confirm");
+      return;
+    }
+
+    // 3. Open Razorpay checkout
+    const rzpOptions = {
+      key: orderData.keyId,
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "LearnHub",            // ← change to your brand name
+      description: orderData.courseName,
+      order_id: orderData.orderId,
+      prefill: {
+        name: orderData.studentName,
+        email: orderData.studentEmail,
+        contact: orderData.studentContact,
+      },
+      theme: { color: "#f97316" }, // orange to match your UI
+
+      // ── Payment success ──────────────────────────────────────────────────
+      handler: async (response: {
+        razorpay_order_id: string;
+        razorpay_payment_id: string;
+        razorpay_signature: string;
+      }) => {
+        try {
+          const { data } = await httpClient.post("/payments/verify", {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            courseId: course._id,
+            studentId: student._id,
+          });
+          setResult(data.enrollment);
+          onSuccess(data.enrollment);
+          setStep("success");
+        } catch (err: any) {
+          setError(
+            err?.response?.data?.message ||
+              "Payment verification failed. Please contact support."
+          );
+          setStep("failed");
+        }
+      },
+
+      // ── Modal dismissed / payment failed ────────────────────────────────
+      modal: {
+        ondismiss: async () => {
+          // Mark enrollment as failed on backend
+          try {
+            await httpClient.post("/payments/failed", {
+              razorpay_order_id: orderData.orderId,
+              error_description: "Payment cancelled by user",
+            });
+          } catch {
+            // Best-effort
+          }
+          setError("Payment was cancelled.");
+          setStep("failed");
+        },
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(rzpOptions);
+
+    // Handle payment.failed event from Razorpay
+    rzp.on(
+      "payment.failed",
+      async (response: { error: { description: string; metadata: { order_id: string } } }) => {
+        try {
+          await httpClient.post("/payments/failed", {
+            razorpay_order_id: response.error.metadata.order_id,
+            error_description: response.error.description,
+          });
+        } catch {
+          // Best-effort
+        }
+        setError(response.error.description || "Payment failed. Please try again.");
+        setStep("failed");
+      }
+    );
+
+    rzp.open();
+  };
+
+  const handleEnroll = () => {
+    if (course.coursePrice === 0) {
+      handleFreeEnroll();
+    } else {
+      handlePaidEnroll();
     }
   };
+
+  const isBusy = step === "processing";
 
   return (
     <div
       className={styles.modalOverlay}
-      onClick={step === "confirming" ? undefined : onClose}
+      onClick={isBusy ? undefined : onClose}
     >
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
 
         {/* ── Header ── */}
         <div className={styles.modalHeader}>
           <div>
-            <p className={styles.modalEyebrow}>Enroll Now</p>
+            <p className={styles.modalEyebrow}>
+              {course.coursePrice === 0 ? "Free Enrollment" : "Secure Checkout"}
+            </p>
             <h3 className={styles.modalTitle}>{course.title}</h3>
           </div>
           <button
             className={styles.modalClose}
             onClick={onClose}
             aria-label="Close"
-            disabled={step === "confirming"}
+            disabled={isBusy}
           >
             ✕
           </button>
@@ -152,18 +313,16 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
           </span>
         </div>
 
-        {/* ── Confirm step ── */}
-        {(step === "confirm" || step === "confirming") && (
+        {/* ─────────────── STEP: confirm ─────────────── */}
+        {(step === "confirm" || step === "processing") && (
           <div className={styles.modalConfirm}>
             {student && (
               <div className={styles.studentCard}>
                 <div className={styles.studentAvatar}>
-                  {(student.studentName ?? student.name ?? "S")[0].toUpperCase()}
+                  {studentName[0]?.toUpperCase() ?? "S"}
                 </div>
                 <div className={styles.studentInfo}>
-                  <p className={styles.studentName}>
-                    {student.studentName ?? student.name}
-                  </p>
+                  <p className={styles.studentName}>{studentName}</p>
                   <p className={styles.studentEmail}>{student.email}</p>
                 </div>
                 <span className={styles.studentVerified}>✓</span>
@@ -178,18 +337,23 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
                 </span>
               </div>
               <div className={styles.summaryRow}>
-                <span>Payment status</span>
-                <span
-                  className={styles.statusPill}
-                  style={{
-                    color: PAYMENT_STATUS_META["paid"].color,
-                    background: PAYMENT_STATUS_META["paid"].bg,
-                  }}
-                >
-                  ✓ Paid
+                <span>Payment via</span>
+                <span className={styles.summaryValue}>
+                  {course.coursePrice === 0 ? "Free" : "Razorpay"}
                 </span>
               </div>
             </div>
+
+            {/* Razorpay trust badge (only for paid) */}
+            {course.coursePrice > 0 && (
+              <div className={styles.razorpayBadge}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0110 0v4" />
+                </svg>
+                <span>Secured by Razorpay — UPI, Cards, Net Banking & more</span>
+              </div>
+            )}
 
             {error && <p className={styles.formError}>{error}</p>}
 
@@ -197,26 +361,28 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
               <button
                 className={styles.cancelBtn}
                 onClick={onClose}
-                disabled={step === "confirming"}
+                disabled={isBusy}
               >
                 Cancel
               </button>
               <button
                 className={styles.confirmBtn}
                 onClick={handleEnroll}
-                disabled={step === "confirming"}
+                disabled={isBusy}
               >
-                {step === "confirming" ? (
+                {isBusy ? (
                   <span className={styles.spinner} />
+                ) : course.coursePrice === 0 ? (
+                  "Enroll for Free"
                 ) : (
-                  "Confirm Enrollment"
+                  `Pay ${formatPrice(course.coursePrice)}`
                 )}
               </button>
             </div>
           </div>
         )}
 
-        {/* ── Success step ── */}
+        {/* ─────────────── STEP: success ─────────────── */}
         {step === "success" && result && (
           <div className={styles.modalSuccess}>
             <div className={styles.successIcon}>✓</div>
@@ -227,11 +393,11 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
             <div className={styles.successDetails}>
               <div className={styles.successRow}>
                 <span>Student</span>
-                <span>{student?.studentName ?? student?.name}</span>
+                <span>{studentName}</span>
               </div>
               <div className={styles.successRow}>
                 <span>Amount Paid</span>
-                <span>{formatPrice(result.paidAmount)}</span>
+                <span>{formatPrice(result.paidamount ?? result.totalFee)}</span>
               </div>
               <div className={styles.successRow}>
                 <span>Payment Status</span>
@@ -246,8 +412,13 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
                   {PAYMENT_STATUS_META[result.paymentStatus].label}
                 </span>
               </div>
+              {result.razorpayPaymentId && (
+                <div className={styles.successRow}>
+                  <span>Payment ID</span>
+                  <span className={styles.paymentId}>{result.razorpayPaymentId}</span>
+                </div>
+              )}
             </div>
-            {/* ── Navigate to course player after enrollment ── */}
             <Link
               href={`/lms/course-curriculum/${course._id}`}
               className={styles.doneBtn}
@@ -255,6 +426,29 @@ function EnrollModal({ course, onClose, onSuccess }: EnrollModalProps) {
             >
               Start Learning →
             </Link>
+          </div>
+        )}
+
+        {/* ─────────────── STEP: failed ─────────────── */}
+        {step === "failed" && (
+          <div className={styles.modalFailed}>
+            <div className={styles.failedIcon}>✕</div>
+            <h4>Payment Failed</h4>
+            <p>{error || "Something went wrong with your payment."}</p>
+            <div className={styles.modalActions}>
+              <button className={styles.cancelBtn} onClick={onClose}>
+                Close
+              </button>
+              <button
+                className={styles.confirmBtn}
+                onClick={() => {
+                  setError(null);
+                  setStep("confirm");
+                }}
+              >
+                Try Again
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -272,26 +466,15 @@ interface CourseCardProps {
   onEnroll?: (course: Course) => void;
 }
 
-function CourseCard({
-  course,
-  badge,
-  ctaLabel,
-  enrollment,
-  onEnroll,
-}: CourseCardProps) {
-  // Course details page (thumbnail click / title click)
+function CourseCard({ course, badge, ctaLabel, enrollment, onEnroll }: CourseCardProps) {
   const slug = slugify(course.title);
   const detailsHref = `/course-details/${slug}/${course._id}`;
-
-  // Course player page (Continue Learning CTA)
   const playerHref = `/lms/course-curriculum/${course._id}`;
-
   const status = enrollment?.paymentStatus;
 
   return (
     <div className={styles.card}>
       <div className={styles.imageWrap}>
-        {/* Thumbnail → course details page */}
         <Link href={detailsHref}>
           <img
             src={`${UPLOADS_URL}/courses/${course.courseThumbnailImage}`}
@@ -300,11 +483,8 @@ function CourseCard({
           />
         </Link>
         <span className={styles.badge}>{badge}</span>
-
-        {/* Price tag */}
         <span className={styles.pricePill}>{formatPrice(course.coursePrice)}</span>
 
-        {/* Payment status badge (enrolled cards only) */}
         {status && (
           <span
             className={styles.paymentStatusBadge}
@@ -319,12 +499,9 @@ function CourseCard({
       </div>
 
       <div className={styles.cardBody}>
-        <p className={styles.category}>
-          {course.technology?.name ?? "General"}
-        </p>
+        <p className={styles.category}>{course.technology?.name ?? "General"}</p>
 
         <div className={styles.titleRow}>
-          {/* Title → course details page */}
           <Link href={detailsHref} className={styles.cardTitleLink}>
             <h3 className={styles.cardTitle}>{course.title}</h3>
           </Link>
@@ -340,9 +517,7 @@ function CourseCard({
         </div>
 
         <div className={styles.feeRow}>
-          <span className={styles.feeAmount}>
-            {formatPrice(course.coursePrice)}
-          </span>
+          <span className={styles.feeAmount}>{formatPrice(course.coursePrice)}</span>
           {course.coursePrice > 0 && (
             <span className={styles.feeNote}>one-time payment</span>
           )}
@@ -350,31 +525,19 @@ function CourseCard({
 
         <div className={styles.cardActions}>
           <button className={styles.syllabusBtn}>
-            <svg
-              viewBox="0 0 24 24"
-              width="13"
-              height="13"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
             </svg>
             Syllabus
           </button>
 
           {enrollment ? (
-            // ── Enrolled → go to course player ──────────────────────────────
             <Link href={playerHref} className={styles.exploreBtn}>
               {ctaLabel}
               <span className={styles.arrowCircle}>→</span>
             </Link>
           ) : (
-            // ── Not enrolled → open enroll modal ────────────────────────────
-            <button
-              className={styles.exploreBtn}
-              onClick={() => onEnroll?.(course)}
-            >
+            <button className={styles.exploreBtn} onClick={() => onEnroll?.(course)}>
               {ctaLabel}
               <span className={styles.arrowCircle}>→</span>
             </button>
@@ -394,15 +557,12 @@ export default function CoursesGrid() {
   const [error, setError] = useState<string | null>(null);
   const [enrollTarget, setEnrollTarget] = useState<Course | null>(null);
 
-  // ── Fetch courses + student enrollments together ──
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 1. Courses
         const { data: courseData } = await httpClient.get("/courses");
         setCourses(courseData.courses);
 
-        // 2. Enrollments for current student
         try {
           const raw = localStorage.getItem("student");
           const student = raw ? JSON.parse(raw) : null;
@@ -423,7 +583,7 @@ export default function CoursesGrid() {
             setEnrollmentMap(map);
           }
         } catch {
-          // Not logged in or no enrollments — fine
+          // Not logged in or no enrollments
         }
       } catch (err: any) {
         setError(err?.response?.data?.message || "Failed to load courses.");
@@ -435,15 +595,14 @@ export default function CoursesGrid() {
     fetchData();
   }, []);
 
-  // ── Add newly enrolled course to map immediately (no refetch needed) ──
   const handleEnrollSuccess = useCallback((enrollment: Enrollment) => {
     const cid =
-      enrollment.courseId?._id ??
-      (enrollment.courseId as unknown as string);
+      typeof enrollment.courseId === "string"
+        ? enrollment.courseId
+        : enrollment.courseId._id;
     setEnrollmentMap((prev) => ({ ...prev, [cid]: enrollment }));
   }, []);
 
-  // ── Derived lists ──
   const enrolledCourses = useMemo(
     () => courses.filter((c) => enrollmentMap[c._id]),
     [courses, enrollmentMap]
@@ -454,7 +613,6 @@ export default function CoursesGrid() {
     [courses, enrollmentMap]
   );
 
-  // ─── Loading ───────────────────────────────────────────────────────────────
   if (loading) {
     return (
       <section className={styles.section}>
@@ -468,7 +626,6 @@ export default function CoursesGrid() {
     );
   }
 
-  // ─── Error ─────────────────────────────────────────────────────────────────
   if (error) {
     return (
       <section className={styles.section}>
@@ -479,11 +636,9 @@ export default function CoursesGrid() {
     );
   }
 
-  // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <section className={styles.section} id="courses-list">
 
-      {/* ── SECTION 1: Enrolled Courses ── */}
       {enrolledCourses.length > 0 && (
         <div className={styles.container}>
           <div className={styles.header}>
@@ -504,14 +659,12 @@ export default function CoursesGrid() {
                 badge="Enrolled"
                 ctaLabel="Continue Learning"
                 enrollment={enrollmentMap[course._id]}
-                // enrolled cards have no onEnroll — CTA goes to player
               />
             ))}
           </div>
         </div>
       )}
 
-      {/* ── SECTION 2: Popular Courses (non-enrolled only) ── */}
       {popularCourses.length > 0 && (
         <div
           className={`${styles.container} ${
@@ -536,7 +689,6 @@ export default function CoursesGrid() {
                 course={course}
                 badge="Popular"
                 ctaLabel="Enroll Now"
-                // no enrollment prop → shows Enroll Now button
                 onEnroll={setEnrollTarget}
               />
             ))}
@@ -544,7 +696,6 @@ export default function CoursesGrid() {
         </div>
       )}
 
-      {/* ── Enroll Modal ── */}
       {enrollTarget && (
         <EnrollModal
           course={enrollTarget}

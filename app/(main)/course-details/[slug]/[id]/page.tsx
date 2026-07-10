@@ -125,6 +125,7 @@ export default async function IndividualCoursePage({
       />
       <CourseCertificate />
       {/* <CourseReviews /> */}
+      {/* <Courses /> */}
      <CourseGrid />
     </main>
   );

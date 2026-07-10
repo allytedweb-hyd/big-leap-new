@@ -38,24 +38,34 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mobileWorkshopOpen, setMobileWorkshopOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch workshops on component mount
   useEffect(() => {
     const fetchWorkshops = async () => {
       try {
         const { data } = await httpClient.get("/workshops");
+
         const workshopsData = data?.workshops || [];
-        // Sort workshops and take latest 5 for dropdown
-        const sortedWorkshops = [...workshopsData].sort((a: Workshop, b: Workshop) => 
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setWorkshops(sortedWorkshops.slice(0, 5)); // Show latest 5 workshops
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const upcomingWorkshops = workshopsData
+          .filter((w: Workshop) => new Date(w.date) >= today)
+          .sort(
+            (a: Workshop, b: Workshop) =>
+              new Date(a.date).getTime() - new Date(b.date).getTime()
+          );
+
+        setWorkshops(upcomingWorkshops.slice(0, 5));
       } catch (error) {
         console.error("Failed to fetch workshops:", error);
       } finally {
@@ -69,7 +79,9 @@ export default function Header() {
   return (
     <nav className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <div className="navbar-container">
+
         {/* Logo */}
+
         <a href="/" className="navbar-logo">
           <img
             src="/assets/images/logo1.png"
@@ -78,7 +90,8 @@ export default function Header() {
           />
         </a>
 
-        {/* Desktop Links */}
+        {/* Desktop Menu */}
+
         <div className="navbar-links">
           {NAV_LINKS.map((link) => (
             <a key={link.label} href={link.href} className="navbar-link">
@@ -88,7 +101,8 @@ export default function Header() {
           ))}
         </div>
 
-        {/* Desktop CTAs */}
+        {/* Desktop CTA */}
+
         <div className="navbar-cta">
           <div className="navbar-dropdown">
             <a href="#" className="navbar-btn navbar-btn--outline">
@@ -97,32 +111,51 @@ export default function Header() {
 
             <div className="navbar-dropdown-menu">
               {loading ? (
-                <div style={{ padding: "10px", textAlign: "center", color: "#666" }}>
+                <div
+                  style={{
+                    padding: "10px",
+                    textAlign: "center",
+                    color: "#666",
+                  }}
+                >
                   Loading...
                 </div>
               ) : workshops.length > 0 ? (
                 workshops.map((workshop) => (
                   <a
                     key={workshop._id}
-                    href={`/workshops/${slugify(workshop.workshopHeading)}/${workshop._id}`}
+                    href={`/workshops/${slugify(
+                      workshop.workshopHeading
+                    )}/${workshop._id}`}
                   >
                     {workshop.workshopHeading}
                   </a>
                 ))
               ) : (
-                <div style={{ padding: "10px", textAlign: "center", color: "#666" }}>
+                <div
+                  style={{
+                    padding: "10px",
+                    textAlign: "center",
+                    color: "#666",
+                  }}
+                >
                   No workshops available
                 </div>
               )}
             </div>
           </div>
 
-          <a href="#enroll" className="navbar-btn navbar-btn--primary" onClick={scrollToContact}>
+          <a
+            href="#enroll"
+            className="navbar-btn navbar-btn--primary"
+            onClick={scrollToContact}
+          >
             Enroll Now
           </a>
         </div>
 
         {/* Hamburger */}
+
         <button
           className="navbar-hamburger"
           onClick={() => setIsOpen(!isOpen)}
@@ -133,8 +166,10 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
+
       {isOpen && (
-        <div className="navbar-mobile">
+        <div className="navbar-mobile-menu">
+
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
@@ -145,14 +180,61 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <div className="navbar-mobile-cta">
-            <a href="/workshop" className="navbar-btn navbar-btn--outline">
-              Free Workshop
-            </a>
-            <a href="#enroll" className="navbar-btn navbar-btn--primary">
-              Enroll Now
-            </a>
+
+          {/* Mobile Workshop */}
+
+          <div className="navbar-mobile-workshop">
+
+            <button
+              className="navbar-mobile-workshop-btn"
+              onClick={() =>
+                setMobileWorkshopOpen(!mobileWorkshopOpen)
+              }
+            >
+              Free Workshop {mobileWorkshopOpen ? "▲" : "▼"}
+            </button>
+
+            {mobileWorkshopOpen && (
+              <div className="navbar-mobile-workshop-list">
+
+                {loading ? (
+                  <div className="navbar-mobile-loading">
+                    Loading...
+                  </div>
+                ) : workshops.length > 0 ? (
+                  workshops.map((workshop) => (
+                    <a
+                      key={workshop._id}
+                      href={`/workshops/${slugify(
+                        workshop.workshopHeading
+                      )}/${workshop._id}`}
+                      className="navbar-mobile-workshop-item"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {workshop.workshopHeading}
+                    </a>
+                  ))
+                ) : (
+                  <div className="navbar-mobile-loading">
+                    No workshops available
+                  </div>
+                )}
+
+              </div>
+            )}
           </div>
+
+          <a
+            href="#enroll"
+            className="navbar-btn navbar-btn--primary navbar-mobile-enroll"
+            onClick={(e) => {
+              scrollToContact(e);
+              setIsOpen(false);
+            }}
+          >
+            Enroll Now
+          </a>
+
         </div>
       )}
     </nav>

@@ -19,7 +19,6 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
-
 /* ── CONTAINER ── */
 
 .navbar-container {
@@ -43,7 +42,6 @@
         gap: 0;
     }
 }
-
 
 /* ── LOGO ── */
 
@@ -97,7 +95,6 @@
     color: var(--brand-primary);
 }
 
-
 /* ── DESKTOP LINKS ── */
 
 .navbar-links {
@@ -135,7 +132,6 @@
 .navbar-link:hover .navbar-link-underline {
     width: 100%;
 }
-
 
 /* ── CTA BUTTONS ── */
 
@@ -178,7 +174,6 @@
     opacity: 0.88;
 }
 
-
 /* ── HAMBURGER ── */
 
 .navbar-hamburger {
@@ -190,7 +185,6 @@
     cursor: pointer;
     padding: 6px;
 }
-
 
 /* ── MOBILE MENU ── */
 
@@ -229,7 +223,6 @@
     text-align: center;
 }
 
-
 /* ── RESPONSIVE ── */
 
 @media (max-width: 1024px) {
@@ -246,7 +239,6 @@
     }
 }
 
-
 /* DROPDOWN */
 
 .navbar-dropdown {
@@ -258,7 +250,7 @@
     display: inline-block;
 }
 
-.navbar-dropdown>.navbar-btn {
+.navbar-dropdown > .navbar-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -301,4 +293,71 @@
     background: rgba(255, 255, 255, 0.05);
     color: var(--brand-primary);
     padding-left: 18px;
+}
+
+.navbar-mobile-workshops {
+    padding: 8px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-mobile-workshops-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 8px 0 6px;
+}
+
+.navbar-mobile-workshops-status {
+    padding: 6px 0;
+    font-size: 14px;
+    color: #666;
+}
+.navbar-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-mobile-link {
+    padding: 12px 0;
+    text-decoration: none;
+    color: #222;
+    border-bottom: 1px solid #eee;
+}
+
+.navbar-mobile-workshop-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 12px 0;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.navbar-mobile-workshop-list {
+    padding-left: 15px;
+}
+
+.navbar-mobile-workshop-item {
+    display: block;
+    padding: 10px 0;
+    color: #444;
+    text-decoration: none;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.navbar-mobile-loading {
+    padding: 10px 0;
+    color: #777;
+}
+
+.navbar-mobile-enroll {
+    margin-top: 15px;
 }
