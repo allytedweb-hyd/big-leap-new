@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { httpClient } from "../../utils/api";
-import styles from "./ClassesList.module.css";
+import styles from "./Quizdashboard.module.css";
 
 interface ChapterQuizStatus {
   chapterId: string;
@@ -35,9 +35,9 @@ function QuizIcon() {
 }
 
 export default function StudentQuizList() {
-  const params = useParams();
-  const router = useRouter();
-  const courseId = params?.courseId as string;
+ const params = useParams();
+const router = useRouter();
+const courseId = params?.id as string;
 
   const studentId = (() => {
     if (typeof window === "undefined") return "";
@@ -55,16 +55,20 @@ export default function StudentQuizList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!courseId || !studentId) {
-      setError("You must be logged in to view quizzes.");
-      setLoading(false);
-      return;
-    }
+      console.log("DEBUG courseId:", courseId);
+  console.log("DEBUG studentId:", studentId);
+  console.log("DEBUG raw localStorage:", localStorage.getItem("student"));
+  if (!courseId || !studentId) {
+    setError("You must be logged in to view quizzes.");
+    setLoading(false);
+    return;
+  }
+
     (async () => {
       try {
         const { data } = await httpClient.get(
           `/student/courses/${courseId}/quizzes`,
-          { params: { studentId } } // remove once studentId comes from auth token
+          { params: { studentId } } 
         );
         setCourseTitle(data?.course?.title || "");
         setChapters(data?.chapters || []);
@@ -119,7 +123,7 @@ export default function StudentQuizList() {
                 key={ch.chapterId}
                 onClick={() =>
                   ch.hasQuiz &&
-                  router.push(`/lms/courses/${courseId}/chapters/${ch.chapterId}/quiz`)
+                   router.push(`/lms/takequiz/${courseId}/${ch.chapterId}`)
                 }
                 style={{
                   display: "flex",

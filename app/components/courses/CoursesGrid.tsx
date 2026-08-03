@@ -13,6 +13,7 @@ interface Course {
   courseThumbnailImage: string;
   curriculumKey?: string;          // ← new field
   technology?: { name: string };
+   isActive?: boolean;
 }
 
 // ── active modal state ─────────────────────────────────────────────────────
@@ -58,7 +59,11 @@ export default function CoursesGrid() {
     const fetchCourses = async () => {
       try {
         const { data } = await httpClient.get("/courses");
-        setCourses(data.courses);
+        // setCourses(data.courses);
+          const activeCourses = (data.courses || []).filter(
+        (c: Course) => c.isActive !== false
+      );
+      setCourses(activeCourses);
       } catch (err: any) {
         setError(err?.response?.data?.message || "Failed to load courses.");
       } finally {

@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { httpClient } from "../../utils/api";
-import styles from "./ClassesList.module.css";
+import styles from "./TakeQuiz.module.css";
+
+// ─── Types ─────────────────────────────────────────────────────────────────
 
 interface QuizQuestion {
   questionText: string;
@@ -11,7 +13,7 @@ interface QuizQuestion {
   marks: number;
 }
 
-interface QuizData {
+interface QuizForAttempt {
   quizId: string;
   title: string;
   description: string;
@@ -31,7 +33,7 @@ interface ResultQuestion {
   marks: number;
 }
 
-interface QuizResult {
+interface SubmitResult {
   attemptNumber: number;
   score: number;
   totalMarks: number;
@@ -45,6 +47,22 @@ function BackIcon() {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M19 12H5M5 12l7 7M5 12l7-7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#16a34a" strokeWidth="2.5">
+      <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function CrossIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#dc2626" strokeWidth="2.5">
+      <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -65,12 +83,31 @@ export default function TakeQuiz() {
     }
   })();
 
-  const [quiz, setQuiz] = useState<QuizData | null>(null);
+  const [quiz, setQuiz] = useState<QuizForAttempt | null>(null);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<QuizResult | null>(null);
+  const [validationMsg, setValidationMsg] = useState<string | null>(null);
+  const [result, setResult] = useState<SubmitResult | null>(null);
+
+  const fetchQuiz = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await httpClient.get(
+        `/student/courses/${courseId}/chapters/${chapterId}/quiz`,
+        { params: { studentId } }
+      );
+      setQuiz(data);
+      setAnswers({});
+      setResult(null);
+    } catch (err: any) {
+      setError(err?.response?.data?.message || "Failed to load quiz.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!courseId || !chapterId || !studentId) {
@@ -78,40 +115,37 @@ export default function TakeQuiz() {
       setLoading(false);
       return;
     }
-    (async () => {
-      try {
-        const { data } = await httpClient.get(
-          `/student/courses/${courseId}/chapters/${chapterId}/quiz`,
-          { params: { studentId } }
-        );
-        setQuiz(data);
-      } catch (err: any) {
-        setError(err?.response?.data?.message || "Failed to load quiz.");
-      } finally {
-        setLoading(false);
-      }
-    })();
+    fetchQuiz();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, chapterId, studentId]);
 
-  const selectAnswer = (qIdx: number, optIdx: number) => {
-    if (result) return; // locked after submit
-    setAnswers((prev) => ({ ...prev, [qIdx]: optIdx }));
+  const handleSelect = (questionIndex: number, optionIndex: number) => {
+    setAnswers((prev) => ({ ...prev, [questionIndex]: optionIndex }));
+    setValidationMsg(null);
   };
 
   const handleSubmit = async () => {
     if (!quiz) return;
-    if (Object.keys(answers).length !== quiz.questions.length) {
-      setError("Please answer all questions before submitting.");
+
+    const unanswered = quiz.questions
+      .map((_, idx) => idx)
+      .filter((idx) => answers[idx] === undefined);
+
+    if (unanswered.length > 0) {
+      setValidationMsg(
+        `Please answer all questions before submitting. (${unanswered.length} remaining)`
+      );
       return;
     }
-    setError(null);
+
     setSubmitting(true);
+    setValidationMsg(null);
     try {
       const payload = {
         studentId,
-        answers: Object.entries(answers).map(([qIdx, optIdx]) => ({
-          questionIndex: Number(qIdx),
-          selectedOptionIndex: optIdx,
+        answers: quiz.questions.map((_, idx) => ({
+          questionIndex: idx,
+          selectedOptionIndex: answers[idx],
         })),
       };
       const { data } = await httpClient.post(
@@ -120,16 +154,17 @@ export default function TakeQuiz() {
       );
       setResult(data);
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Failed to submit quiz.");
+      setValidationMsg(err?.response?.data?.message || "Failed to submit quiz.");
     } finally {
       setSubmitting(false);
     }
   };
 
-  const retakeQuiz = () => {
-    setResult(null);
-    setAnswers({});
+  const handleRetake = () => {
+    fetchQuiz();
   };
+
+  // ─── Loading / Error states ────────────────────────────────────────────
 
   if (loading) {
     return (
@@ -139,7 +174,7 @@ export default function TakeQuiz() {
     );
   }
 
-  if (error && !quiz) {
+  if (error) {
     return (
       <div className={styles.page}>
         <div className={styles.errorBox}>
@@ -154,193 +189,167 @@ export default function TakeQuiz() {
 
   if (!quiz) return null;
 
+  // ─── Result view ────────────────────────────────────────────────────────
+
+  if (result) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.topBar}>
+          <button className={styles.backBtn} onClick={() => router.back()}>
+            <BackIcon /> Back
+          </button>
+          <div className={styles.topBarTitle}>
+            <span className={styles.topBarCourse}>{quiz.title}</span>
+            <span className={styles.topBarTech}>Result</span>
+          </div>
+        </div>
+
+        <div style={{ maxWidth: 760, margin: "0 auto", padding: "28px 20px 60px" }}>
+          {/* Score summary card */}
+          <div className={styles.resultCard}>
+            <div className={`${styles.resultStatus} ${result.passed ? styles.passStatus : styles.failStatus}`}>
+              {result.passed ? "PASSED" : "FAILED"}
+            </div>
+            <div className={styles.resultPercentage}>{Math.round(result.percentage)}%</div>
+            <div className={styles.resultStatsRow}>
+              <div className={styles.resultStat}>
+                <span className={styles.resultStatLabel}>Score</span>
+                <span className={styles.resultStatValue}>
+                  {result.score} / {result.totalMarks}
+                </span>
+              </div>
+              <div className={styles.resultStat}>
+                <span className={styles.resultStatLabel}>Passing Score</span>
+                <span className={styles.resultStatValue}>{result.passingScore}</span>
+              </div>
+              <div className={styles.resultStat}>
+                <span className={styles.resultStatLabel}>Attempt</span>
+                <span className={styles.resultStatValue}>#{result.attemptNumber}</span>
+              </div>
+            </div>
+            <div className={styles.resultSubmittedAt}>
+              Submitted {new Date().toLocaleString()}
+            </div>
+          </div>
+
+          <div className={styles.reviewHeading}>Answer Review</div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {result.results.map((r, idx) => (
+              <div key={idx} className={styles.reviewCard}>
+                <div className={styles.reviewCardHeader}>
+                  <span className={styles.reviewQNum}>Q{idx + 1}</span>
+                  <span className={styles.reviewMarks}>
+                    {r.isCorrect ? r.marks : 0} / {r.marks} marks
+                  </span>
+                  {r.isCorrect ? <CheckIcon /> : <CrossIcon />}
+                </div>
+                <div className={styles.reviewQText}>{r.questionText}</div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
+                  {r.options.map((opt, optIdx) => {
+                    const isSelected = optIdx === r.selectedOptionIndex;
+                    const isCorrectOpt = optIdx === r.correctOptionIndex;
+                    let cls = styles.reviewOption;
+                    if (isCorrectOpt) cls += ` ${styles.optionCorrect}`;
+                    else if (isSelected && !isCorrectOpt) cls += ` ${styles.optionWrong}`;
+
+                    return (
+                      <div key={optIdx} className={cls}>
+                        <span>{opt}</span>
+                        {isSelected && <span className={styles.reviewTag}>Your answer</span>}
+                        {isCorrectOpt && !isSelected && (
+                          <span className={styles.reviewTag}>Correct answer</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {r.explanation && (
+                  <div className={styles.explanationBox}>
+                    <strong>Explanation:</strong> {r.explanation}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
+            <button className={styles.retakeBtn} onClick={handleRetake}>
+              Retake Quiz
+            </button>
+            <button className={styles.backBtn} onClick={() => router.back()}>
+              <BackIcon /> Back to Chapters
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── Quiz taking view ───────────────────────────────────────────────────
+
+  const answeredCount = Object.keys(answers).length;
+
   return (
     <div className={styles.page}>
       <div className={styles.topBar}>
         <button className={styles.backBtn} onClick={() => router.back()}>
-          <BackIcon /> Back to Quizzes
+          <BackIcon /> Back
         </button>
         <div className={styles.topBarTitle}>
           <span className={styles.topBarCourse}>{quiz.title}</span>
           <span className={styles.topBarTech}>
-            {quiz.attemptsCount > 0 ? `Attempt ${quiz.attemptsCount + 1}` : "First Attempt"}
+            {answeredCount}/{quiz.questions.length} answered
           </span>
         </div>
       </div>
 
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "28px 20px 80px" }}>
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: "28px 20px 100px" }}>
+        {quiz.description && <p className={styles.quizDescription}>{quiz.description}</p>}
 
-        {/* ── RESULT VIEW ── */}
-        {result ? (
-          <>
-            <div
-              style={{
-                background: result.passed ? "#f0fdf4" : "#fff7ed",
-                border: `1px solid ${result.passed ? "#bbf7d0" : "#fed7aa"}`,
-                borderRadius: 14,
-                padding: 24,
-                textAlign: "center",
-                marginBottom: 24,
-              }}
-            >
-              <div style={{ fontSize: 32, fontWeight: 800, color: result.passed ? "#16a34a" : "#f97316" }}>
-                {result.score} / {result.totalMarks}
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {quiz.questions.map((q, qIdx) => (
+            <div key={qIdx} className={styles.questionCard}>
+              <div className={styles.questionHeader}>
+                <span className={styles.qNumBadge}>{qIdx + 1}</span>
+                <span className={styles.qText}>{q.questionText}</span>
+                <span className={styles.qMarks}>{q.marks} marks</span>
               </div>
-              <div style={{ fontSize: 14, color: "#64748b", marginTop: 4 }}>
-                {Math.round(result.percentage)}% — {result.passed ? "Passed" : "Not Passed"}
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}>
+                {q.options.map((opt, optIdx) => {
+                  const selected = answers[qIdx] === optIdx;
+                  return (
+                    <label
+                      key={optIdx}
+                      className={`${styles.optionLabel} ${selected ? styles.optionSelected : ""}`}
+                    >
+                      <input
+                        type="radio"
+                        name={`q-${qIdx}`}
+                        checked={selected}
+                        onChange={() => handleSelect(qIdx, optIdx)}
+                        className={styles.radioInput}
+                      />
+                      <span className={styles.radioCustom} />
+                      <span>{opt}</span>
+                    </label>
+                  );
+                })}
               </div>
-              <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 8 }}>
-                Passing score: {result.passingScore} · Attempt #{result.attemptNumber}
-              </div>
-              <button
-                onClick={retakeQuiz}
-                style={{
-                  marginTop: 16, padding: "9px 20px", background: "#f97316",
-                  color: "#fff", border: "none", borderRadius: 9, fontWeight: 600,
-                  fontSize: 13, cursor: "pointer",
-                }}
-              >
-                Retake Quiz
-              </button>
             </div>
+          ))}
+        </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {result.results.map((r, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    background: "#fff", border: "1px solid #eef0f4",
-                    borderRadius: 12, padding: 18,
-                  }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-                    <span style={{ fontWeight: 600, fontSize: 14, color: "#1e293b" }}>
-                      Q{idx + 1}. {r.questionText}
-                    </span>
-                    <span style={{
-                      fontSize: 12, fontWeight: 700,
-                      color: r.isCorrect ? "#16a34a" : "#ef4444",
-                      whiteSpace: "nowrap", marginLeft: 12,
-                    }}>
-                      {r.isCorrect ? `+${r.marks}` : "0"} pts
-                    </span>
-                  </div>
+        {validationMsg && <div className={styles.validationMsg}>{validationMsg}</div>}
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    {r.options.map((opt, oIdx) => {
-                      const isCorrectOpt = oIdx === r.correctOptionIndex;
-                      const isSelectedOpt = oIdx === r.selectedOptionIndex;
-                      let bg = "#fff", border = "#e2e8f0", color = "#334155";
-                      if (isCorrectOpt) { bg = "#f0fdf4"; border = "#86efac"; color = "#16a34a"; }
-                      if (isSelectedOpt && !isCorrectOpt) { bg = "#fef2f2"; border = "#fca5a5"; color = "#ef4444"; }
-
-                      return (
-                        <div
-                          key={oIdx}
-                          style={{
-                            padding: "8px 12px", borderRadius: 7,
-                            background: bg, border: `1px solid ${border}`,
-                            color, fontSize: 13, fontWeight: isCorrectOpt || isSelectedOpt ? 600 : 400,
-                            display: "flex", justifyContent: "space-between",
-                          }}
-                        >
-                          <span>{opt}</span>
-                          {isCorrectOpt && <span>✓ Correct</span>}
-                          {isSelectedOpt && !isCorrectOpt && <span>Your answer</span>}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {r.explanation && (
-                    <div style={{
-                      marginTop: 10, padding: "10px 12px", background: "#f8fafc",
-                      borderRadius: 7, fontSize: 12.5, color: "#64748b", lineHeight: 1.5,
-                    }}>
-                      <strong style={{ color: "#475569" }}>Explanation: </strong>
-                      {r.explanation}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            {/* ── TAKE QUIZ VIEW ── */}
-            {quiz.description && (
-              <p style={{ fontSize: 14, color: "#64748b", marginBottom: 20 }}>{quiz.description}</p>
-            )}
-
-            {error && (
-              <div style={{
-                background: "#fef2f2", border: "1px solid #fca5a5", color: "#ef4444",
-                padding: "10px 14px", borderRadius: 8, fontSize: 13, marginBottom: 16,
-              }}>
-                {error}
-              </div>
-            )}
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {quiz.questions.map((q, qIdx) => (
-                <div
-                  key={qIdx}
-                  style={{ background: "#fff", border: "1px solid #eef0f4", borderRadius: 12, padding: 18 }}
-                >
-                  <div style={{ fontWeight: 600, fontSize: 14, color: "#1e293b", marginBottom: 12 }}>
-                    Q{qIdx + 1}. {q.questionText}
-                    <span style={{ fontWeight: 400, fontSize: 12, color: "#94a3b8", marginLeft: 8 }}>
-                      ({q.marks} pt{q.marks !== 1 ? "s" : ""})
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    {q.options.map((opt, oIdx) => {
-                      const selected = answers[qIdx] === oIdx;
-                      return (
-                        <label
-                          key={oIdx}
-                          onClick={() => selectAnswer(qIdx, oIdx)}
-                          style={{
-                            display: "flex", alignItems: "center", gap: 10,
-                            padding: "10px 14px", borderRadius: 8, cursor: "pointer",
-                            border: `1.5px solid ${selected ? "#f97316" : "#e2e8f0"}`,
-                            background: selected ? "#fff7ed" : "#fff",
-                            fontSize: 13.5, color: selected ? "#c2410c" : "#334155",
-                            fontWeight: selected ? 600 : 400,
-                          }}
-                        >
-                          <span style={{
-                            width: 16, height: 16, borderRadius: "50%",
-                            border: `2px solid ${selected ? "#f97316" : "#cbd5e1"}`,
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            flexShrink: 0,
-                          }}>
-                            {selected && <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#f97316" }} />}
-                          </span>
-                          {opt}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={handleSubmit}
-              disabled={submitting}
-              style={{
-                marginTop: 24, width: "100%", padding: "13px 0",
-                background: "#f97316", color: "#fff", border: "none",
-                borderRadius: 10, fontWeight: 700, fontSize: 14.5,
-                cursor: submitting ? "not-allowed" : "pointer",
-                opacity: submitting ? 0.7 : 1,
-              }}
-            >
-              {submitting ? "Submitting..." : "Submit Quiz"}
-            </button>
-          </>
-        )}
+        <div className={styles.submitBar}>
+          <button className={styles.submitBtn} onClick={handleSubmit} disabled={submitting}>
+            {submitting ? "Submitting..." : "Submit Quiz"}
+          </button>
+        </div>
       </div>
     </div>
   );

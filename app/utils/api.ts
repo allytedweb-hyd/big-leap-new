@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const BASE_API_URL = "http://localhost:3003/api";
-export const UPLOADS_URL = "http://localhost:3003/uploads"; 
-// export const BASE_API_URL = "https://api.bigleaptech.in/api";
-// export const UPLOADS_URL = "https://api.bigleaptech.in/uploads";
+// export const BASE_API_URL = "http://localhost:3003/api";
+// export const UPLOADS_URL = "http://localhost:3003/uploads"; 
+export const BASE_API_URL = "https://api.bigleaptech.in/api";
+export const UPLOADS_URL = "https://api.bigleaptech.in/uploads";
 
 export const httpClient = axios.create({
     baseURL: BASE_API_URL,

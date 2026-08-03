@@ -1,0 +1,370 @@
+.page {
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+.topBar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #fff;
+    border-bottom: 1px solid #eef0f4;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+}
+
+.backBtn:hover {
+    background: #f8fafc;
+}
+
+.topBarTitle {
+    display: flex;
+    flex-direction: column;
+}
+
+.topBarCourse {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.topBarTech {
+    font-size: 12px;
+    color: #f97316;
+    font-weight: 600;
+}
+
+.errorBox {
+    max-width: 480px;
+    margin: 80px auto;
+    text-align: center;
+    color: #dc2626;
+    background: #fff;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 32px;
+}
+
+.quizDescription {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 18px;
+}
+
+/* ── Question cards ── */
+
+.questionCard {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.questionHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.qNumBadge {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #f97316;
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.qText {
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+.qMarks {
+    font-size: 11px;
+    color: #94a3b8;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.optionLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #334155;
+    cursor: pointer;
+    transition:
+        border-color 0.15s,
+        background 0.15s;
+}
+
+.optionLabel:hover {
+    border-color: #fdba74;
+}
+
+.optionSelected {
+    border-color: #f97316;
+    background: #fff7ed;
+}
+
+.radioInput {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radioCustom {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.optionSelected .radioCustom {
+    border-color: #f97316;
+}
+
+.optionSelected .radioCustom::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f97316;
+}
+
+.validationMsg {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.submitBar {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submitBtn {
+    padding: 12px 28px;
+    background: #f97316;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background: #ea580c;
+}
+
+.submitBtn:disabled {
+    background: #fdba74;
+    cursor: not-allowed;
+}
+
+/* ── Result card ── */
+
+.resultCard {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.resultStatus {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.passStatus {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.failStatus {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.resultPercentage {
+    font-size: 42px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 10px 0;
+}
+
+.resultStatsRow {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 10px;
+}
+
+.resultStat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.resultStatLabel {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.resultStatValue {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.resultSubmittedAt {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.reviewHeading {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 12px;
+}
+
+.reviewCard {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.reviewCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviewQNum {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f97316;
+}
+
+.reviewMarks {
+    margin-left: auto;
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.reviewQText {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e293b;
+    margin-top: 8px;
+}
+
+.reviewOption {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #334155;
+}
+
+.optionCorrect {
+    border-color: #86efac;
+    background: #f0fdf4;
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.optionWrong {
+    border-color: #fca5a5;
+    background: #fef2f2;
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.reviewTag {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.explanationBox {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border-left: 3px solid #f97316;
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.retakeBtn {
+    padding: 12px 24px;
+    background: #fff;
+    border: 1px solid #f97316;
+    color: #f97316;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.retakeBtn:hover {
+    background: #fff7ed;
+}
